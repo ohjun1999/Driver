@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "344444927711",
+    "project_id": "kingbus-driver",
+    "storage_bucket": "kingbus-driver.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344444927711:android:68968c6b3930b8ec04336a",
+        "android_client_info": {
+          "package_name": "com.kingbus.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344444927711-l15bos2lg365qr0i02cpfmden21qo7kp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kingbus.driver",
+            "certificate_hash": "444e72af6023276f0e0fd667ba61ba6d1eef305a"
+          }
+        },
+        {
+          "client_id": "344444927711-5mos0r473s5ds1v411g1upifvuiccqv6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_tOcHASztDqxaEkrCOual3367PffZusE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "344444927711-5mos0r473s5ds1v411g1upifvuiccqv6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/postItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/postTitle"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/postName"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/countComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(12)"
+            android:textColor="@color/kingRed"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/postTitle"
+            app:layout_constraintStart_toEndOf="@+id/postTitle"
+            app:layout_constraintTop_toTopOf="@+id/postTitle" />
+
+        <TextView
+            android:id="@+id/postName"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="최원빈"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/postTitle"
+            app:layout_constraintTop_toBottomOf="@+id/postTitle" />
+
+        <TextView
+            android:id="@+id/postPubDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2022.08.22 12:00"
+            app:layout_constraintBottom_toBottomOf="@+id/textView6"
+            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintTop_toTopOf="@+id/textView6" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" ㅣ "
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/postName"
+            app:layout_constraintStart_toEndOf="@+id/postName"
+            app:layout_constraintTop_toTopOf="@+id/postName" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/black45"
+        app:layout_constraintTop_toBottomOf="@id/postItem"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
