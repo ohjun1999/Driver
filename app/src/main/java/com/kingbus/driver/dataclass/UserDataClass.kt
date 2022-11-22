@@ -3,6 +3,8 @@ package com.kingbus.driver.dataclass
 data class UserDataClass(
     var name: String? = null,
     //전세버스, 일반회원, 제휴업체
+    var loginCheck: String? = null,
+    //전세버스, 일반회원, 제휴업체
     var id: String? = null,
     //전세버스, 일반회원, 제휴업체
     var password: String? = null,

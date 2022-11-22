@@ -1,15 +1,18 @@
 package com.kingbus.driver.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.kingbus.driver.R
 import com.kingbus.driver.activity.MainActivity
+import com.kingbus.driver.activity.PostDetailActivity
 import com.kingbus.driver.dataclass.PostDataClass
 
 class PostAdapter (
@@ -59,12 +62,20 @@ class PostAdapter (
 
         holder.itemView.setOnClickListener {
 //            Toast.makeText(MainActivity(), post.type, Toast.LENGTH_SHORT).show()
-//            val intent =
-//                Intent(holder.itemView.context, NoteProfileDetailActivity::class.java)
-//
-//            intent.putExtra("content", "원하는 데이터를 보냅니다.")
-//
-//            ContextCompat.startActivity(holder.itemView.context, intent, null)
+            val intent =
+                Intent(holder.itemView.context, PostDetailActivity::class.java)
+
+            intent.putExtra("title", post.title)
+            intent.putExtra("name", post.name)
+            intent.putExtra("pubDate", post.pubDate)
+            intent.putExtra("comment", post.comment.toString())
+            intent.putExtra("uid", post.uid)
+            intent.putExtra("context", post.context)
+            intent.putExtra("view", post.view.toString())
+            intent.putExtra("img", post.img)
+            intent.putExtra("type", post.type)
+
+            ContextCompat.startActivity(holder.itemView.context, intent, null)
 
         }
 

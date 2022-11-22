@@ -7,12 +7,12 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.kingbus.driver.databinding.ActivityAccountBinding
 import com.kingbus.driver.databinding.ActivityWriteBinding
-import com.kingbus.driver.dataclass.PostDataClass
 
-class WriteActivity: AppCompatActivity() {
+class AccountActivity : AppCompatActivity() {
     // lateinit 사용
-    private lateinit var binding: ActivityWriteBinding
+    private lateinit var binding: ActivityAccountBinding
 
     lateinit var db: FirebaseFirestore
     lateinit var auth: FirebaseAuth
@@ -21,16 +21,14 @@ class WriteActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // binding class 인스턴스 생성
-        binding = ActivityWriteBinding.inflate(layoutInflater)
+        binding = ActivityAccountBinding.inflate(layoutInflater)
         // binding class의 root를 참조하여 view로
         val view = binding.root
         setContentView(view)
         db = Firebase.firestore
         auth = Firebase.auth
 
-        binding.backKey.setOnClickListener {
-            finish()
-        }
+
 
 //        binding.endBtn.setOnClickListener {
 //

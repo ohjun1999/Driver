@@ -12,14 +12,21 @@
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">
+
+        </activity>
+        <activity android:name=".activity.WriteActivity" />
+        <activity android:name=".activity.PostDetailActivity" />
+        <activity android:name=".activity.LoginActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Driver2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.WriteActivity"
-            />
+        <activity android:name=".activity.AccountActivity"
+            android:theme="@style/Theme.Driver2"/>
     </application>
 
 </manifest>
