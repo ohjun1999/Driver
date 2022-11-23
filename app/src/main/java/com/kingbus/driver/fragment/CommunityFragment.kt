@@ -33,7 +33,7 @@ class CommunityFragment : Fragment() {
         var comChildDriverFragment = ComChildDriverFragment()
         var comChildTravelFragment = ComChildTravelFragment()
         var comChildJobFragment = ComChildJobFragment()
-        childFragmentManager.beginTransaction().replace(R.id.communityFrame, comChildDriverFragment).commit()
+        childFragmentManager.beginTransaction().replace(R.id.communityFrame, comChildFreeFragment).commit()
         binding.btn1.setOnClickListener {
             childFragmentManager.beginTransaction().replace(R.id.communityFrame, comChildDriverFragment).commit()
         }

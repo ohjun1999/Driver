@@ -16,7 +16,7 @@ data class UserDataClass(
     var province: String? = null,
     //전세버스, 일반회원, 제휴업체
     var city: String? = null,
-    //전세버스, 일반회원, 제휴업체
+    //전세버스, 일반회원, 제휴업체?
     var phoneNum: String? = null,
     //전세버스, 일반회원, 제휴업체
     var profileImg: String? = null,
