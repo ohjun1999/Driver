@@ -38,9 +38,9 @@ class ComChildTravelFragment : Fragment() {
         travelRecyclerView = binding.travelRecyclerView
         var postList = arrayListOf<PostDataClass>()
 
-        db.collection("Post").whereEqualTo("type","여행").get().addOnSuccessListener { documents ->
+        db.collection("Post").whereEqualTo("type","여행").addSnapshotListener { documents, _ ->
             postList.clear()
-            for (document in documents) {
+            for (document in documents!!) {
                 Log.d(document.id, document.data.toString())
                 var item = document.toObject(PostDataClass::class.java)
                 postList.add(item)

@@ -1,11 +1,13 @@
 package com.kingbus.driver.activity
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -36,7 +38,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 //        db = Firebase.firestore
 //        auth = Firebase.auth
-
+        val name = intent.getStringExtra("name")
+        val uid = intent.getStringExtra("uid")
         // 하단 탭이 눌렸을 때 화면을 전환하기 위해선 이벤트 처리하기 위해 BottomNavigationView 객체 생성
         var bnvMain = findViewById<BottomNavigationView>(R.id.bnv_main)
 
@@ -80,6 +83,8 @@ class MainActivity : AppCompatActivity() {
         }
         binding.writeBtn.setOnClickListener {
             var intent = Intent(this, WriteActivity::class.java)
+            intent.putExtra("name", name)
+            intent.putExtra("uid", uid)
             startActivity(intent)
         }
 
@@ -99,7 +104,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.main.windowToken, 0)
+    }
     fun runDelayed(millis: Long, function: () -> Unit) {
         Handler(Looper.getMainLooper()).postDelayed(function, millis)
     }

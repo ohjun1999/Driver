@@ -10,4 +10,5 @@ data class PostDataClass(
     var img: String? = null,
     var view: Int? = null,
     var type: String? = null,
+    var postUid: String? = null,
 )

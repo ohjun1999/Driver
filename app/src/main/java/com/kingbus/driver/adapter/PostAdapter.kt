@@ -10,6 +10,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.kingbus.driver.R
 import com.kingbus.driver.activity.MainActivity
 import com.kingbus.driver.activity.PostDetailActivity
@@ -36,7 +42,8 @@ class PostAdapter (
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         var viewHolder = (holder as PostAdapter.ViewHolder).itemView
         val post: PostDataClass = postList[position]
-
+        var db = Firebase.firestore
+        var auth: FirebaseAuth = Firebase.auth
         holder.postName.text = post.name
         holder.postTitle.text = post.title
         holder.postPubDate.text = post.pubDate
@@ -74,6 +81,9 @@ class PostAdapter (
             intent.putExtra("view", post.view.toString())
             intent.putExtra("img", post.img)
             intent.putExtra("type", post.type)
+            intent.putExtra("postUid", post.postUid)
+            db.collection("Post")
+                .document(post.postUid.toString()).update("view", FieldValue.increment(1))
 
             ContextCompat.startActivity(holder.itemView.context, intent, null)
 

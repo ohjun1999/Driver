@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/write"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
@@ -57,7 +58,6 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,26 +67,45 @@
             android:id="@+id/editTextTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/write_back"
+            android:background="@color/white"
             android:hint="제목을 입력해주세요"
-            android:padding="20dp"
+            android:padding="16dp"
+            app:layout_constraintTop_toBottomOf="@id/line1" />
+        <View
+            android:id="@+id/line2"
+            android:background="@color/black12"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toBottomOf="@id/editTextTitle" />
+
+        <Spinner
+            android:id="@+id/postType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_back_gray"
+            android:entries="@array/postType"
+            android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <View
+            android:id="@+id/line1"
+            android:background="@color/black12"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toBottomOf="@id/postType" />
+
         <EditText
-            android:layout_marginTop="12dp"
             android:id="@+id/editTextContent"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@drawable/write_back"
+            android:background="@color/white"
             android:gravity="top"
             android:hint="내용을 입력해주세요"
-            android:padding="20dp"
+            android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextTitle"
-            app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="-169dp" />
+            app:layout_constraintTop_toBottomOf="@id/line2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.kingbus.driver.MySharedPreferences
 import com.kingbus.driver.databinding.ActivityLoginBinding
 import com.kingbus.driver.dataclass.PostDataClass
 import com.kingbus.driver.dataclass.UserDataClass
@@ -55,30 +56,36 @@ class LoginActivity : AppCompatActivity() {
                             if (documents.size() == 0) {
                                 Toast.makeText(this, "로그인 정보가 일치하지 않습니다.", Toast.LENGTH_SHORT)
                                     .show()
-                            }else{
+                            } else {
                                 for (document in documents) {
 
                                     var user = UserDataClass()
 
-                                    user.id = document.getString("id").toString()
-                                    user.password = document.getString("password").toString()
-                                    user.name = document.getString("name").toString()
-
+                                    val id = document.getString("id").toString()
+                                    val password = document.getString("password").toString()
+                                    val name = document.getString("name").toString()
+                                    val uid = document.getString("uid").toString()
 //                        val isValidPassword = BCrypt.checkpw(inputPassword, user.password.toString())
 //
 
 
-                                    if (user.id == inputId && user.password == inputPassword) {
+                                    if (id == inputId && password == inputPassword) {
+
+                                        MySharedPreferences.setUserUid(this, uid)
 
                                         if (binding.maintainCheck.isChecked) {
 
                                             val intent = Intent(this, MainActivity::class.java)
                                             intent.putExtra("content", "원하는 데이터를 보냅니다.")
+                                            intent.putExtra("name", name)
+                                            intent.putExtra("uid", uid)
                                             startActivity(intent)
                                             finish()
                                         } else {
                                             val intent = Intent(this, MainActivity::class.java)
                                             intent.putExtra("content", "원하는 데이터를 보냅니다.")
+                                            intent.putExtra("name", name)
+                                            intent.putExtra("uid", uid)
                                             startActivity(intent)
                                             finish()
                                         }
@@ -108,6 +115,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     }
+
     override fun onBackPressed() {
         if (doubleBackToExit) {
             finishAffinity()

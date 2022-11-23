@@ -39,9 +39,9 @@ class ComChildFreeFragment : Fragment() {
         freeRecyclerView = binding.freeRecyclerView
         var postList = arrayListOf<PostDataClass>()
 
-        db.collection("Post").whereEqualTo("type", "자유").get().addOnSuccessListener { documents ->
+        db.collection("Post").whereEqualTo("type", "자유").addSnapshotListener { documents, _ ->
             postList.clear()
-            for (document in documents) {
+            for (document in documents!!) {
                 Log.d(document.id, document.data.toString())
                 var item = document.toObject(PostDataClass::class.java)
                 postList.add(item)

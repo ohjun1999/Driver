@@ -173,4 +173,10 @@
         <item>놀이시설</item>
         <item>음식점</item>
     </string-array>
+    <string-array name="postType">
+        <item>[ 자유게시판 ]</item>
+        <item>[ 여행게시판 ]</item>
+        <item>[ 공차배차게시판 ]</item>
+        <item>[ 구인구직게시판 ]</item>
+    </string-array>
 </resources>
