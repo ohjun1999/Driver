@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -72,8 +73,9 @@ class WriteActivity: AppCompatActivity() {
             }
 
 
-//            db.collection("Counter").document("counter")
-//                .update("question", FieldValue.increment(1))
+
+            db.collection("User").document(uid.toString())
+                .update("writeCount", FieldValue.increment(1))
             db.collection("Post")
                 .add(postDataClass)
                 .addOnSuccessListener { documentReference ->

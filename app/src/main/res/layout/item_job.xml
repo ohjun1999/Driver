@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/login_back"
+    android:layout_marginTop="12dp"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="64dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_login_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/possible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="지원 가능"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/companyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="킹버스"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/imageView10"
+        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+
+    <TextView
+        android:id="@+id/context"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="킹버스"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@id/imageView10"
+        app:layout_constraintTop_toBottomOf="@+id/companyName" />
+
+    <View
+        android:id="@+id/dpLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/black12"
+        app:layout_constraintBottom_toTopOf="@id/endDate"
+        app:layout_constraintTop_toBottomOf="@id/context" />
+
+    <TextView
+        android:id="@+id/endDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2022.12.24 까지"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/old"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20~50세"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toEndOf="@+id/endDate"
+        app:layout_constraintTop_toTopOf="@+id/endDate" />
+
+    <TextView
+        android:id="@+id/city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="수원"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toEndOf="@+id/old"
+        app:layout_constraintTop_toTopOf="@+id/old" />
+</androidx.constraintlayout.widget.ConstraintLayout>

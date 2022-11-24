@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
                 when (it.itemId) {
                     R.id.first -> {
                         // 다른 프래그먼트 화면으로 이동하는 기능
+                        binding.constraintLayout2.visibility = View.GONE
                         val communityFragment = CommunityFragment()
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.mainFrame, communityFragment).commit()
@@ -71,7 +72,12 @@ class MainActivity : AppCompatActivity() {
                         binding.writeBtn.visibility = View.GONE
                     }
                     R.id.four -> {
+                        val bundle = Bundle()
+                        bundle.putString("name", name)
+                        bundle.putString("uid", uid)
+                        binding.constraintLayout2.visibility = View.VISIBLE
                         val extraFragment = ExtraFragment()
+                        extraFragment.arguments = bundle
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.mainFrame, extraFragment).commit()
                         binding.writeBtn.visibility = View.GONE

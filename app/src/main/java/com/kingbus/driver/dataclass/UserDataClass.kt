@@ -33,5 +33,6 @@ data class UserDataClass(
     //제휴업체
     var uid: String? = null,
     //전세버스, 일반회원, 제휴업체
+    var writeCount: String? = null,
 
     )
