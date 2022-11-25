@@ -13,9 +13,12 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.kingbus.driver.MySharedPreferences
 import com.kingbus.driver.activity.MainActivity
+import com.kingbus.driver.adapter.JobAdapter
 import com.kingbus.driver.adapter.PostAdapter
 import com.kingbus.driver.databinding.FragmentJobBinding
+import com.kingbus.driver.dataclass.JobDataClass
 import com.kingbus.driver.dataclass.PostDataClass
 
 class ComChildJobFragment : Fragment() {
@@ -34,22 +37,28 @@ class ComChildJobFragment : Fragment() {
         val root: View = binding.root
         db = Firebase.firestore
         auth = Firebase.auth
-
-
+        val userUid = MySharedPreferences.getUserUid(requireContext())
+        val userSubmit = MySharedPreferences.getSubmit(requireContext())
         jobRecyclerView =  binding.jobRecyclerView
-        var postList = arrayListOf<PostDataClass>()
+        var jobList = arrayListOf<JobDataClass>()
 
-        db.collection("Post").whereEqualTo("type","구인구직").addSnapshotListener { documents, _ ->
-            postList.clear()
+        db
+            .collection("Job").addSnapshotListener { documents, _ ->
+                jobList.clear()
             for (document in documents!!) {
                 Log.d(document.id, document.data.toString())
-                var item = document.toObject(PostDataClass::class.java)
-                postList.add(item)
+                var item = document.toObject(JobDataClass::class.java)
+                jobList.add(item)
             }
-
-            val postAdapter =
-                PostAdapter(MainActivity(), postList)
-            jobRecyclerView.adapter = postAdapter
+//                db
+//                    .collection("User").whereEqualTo("uid", userUid)
+//                    .get().addOnSuccessListener { result ->
+//
+//
+//                    }
+            val jobAdapter =
+                JobAdapter(userSubmit, userUid, MainActivity(), jobList)
+            jobRecyclerView.adapter = jobAdapter
             jobRecyclerView.layoutManager =
                 LinearLayoutManager(MainActivity(), RecyclerView.VERTICAL, false)
 

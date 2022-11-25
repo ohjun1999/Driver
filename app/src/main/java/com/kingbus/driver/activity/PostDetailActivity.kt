@@ -66,39 +66,74 @@ class PostDetailActivity : AppCompatActivity() {
         binding.postName.text = name
         binding.postTitle.text = title
         val userUid = MySharedPreferences.getUserUid(this)
+        val userName = MySharedPreferences.getName(this)
         commentRecyclerView = binding.commentRecyclerView
         var commentList = arrayListOf<CommentDataClass>()
 
-        if (userUid == uid){
+        if (userUid == uid) {
             binding.deleteBtn.visibility = View.VISIBLE
         }
         binding.backKey.setOnClickListener {
             finish()
         }
-        db.collection("Comment").whereEqualTo("postUid",postUid).addSnapshotListener { documents, _ ->
-            commentList.clear()
-            for (document in documents!!) {
-                Log.d(document.id, document.data.toString())
-                var item = document.toObject(CommentDataClass::class.java)
-                commentList.add(item)
+        db.collection("Comment").whereEqualTo("postUid", postUid)
+            .addSnapshotListener { documents, _ ->
+                commentList.clear()
+                for (document in documents!!) {
+                    Log.d(document.id, document.data.toString())
+                    var item = document.toObject(CommentDataClass::class.java)
+                    commentList.add(item)
+                }
+                val commentAdapter =
+                    CommentAdapter(PostDetailActivity(), commentList)
+                commentRecyclerView.adapter = commentAdapter
+                commentRecyclerView.layoutManager =
+                    LinearLayoutManager(MainActivity(), RecyclerView.VERTICAL, false)
+
+
             }
-            val commentAdapter =
-                CommentAdapter(PostDetailActivity(), commentList)
-            commentRecyclerView.adapter = commentAdapter
-            commentRecyclerView.layoutManager =
-                LinearLayoutManager(MainActivity(), RecyclerView.VERTICAL, false)
+        binding.deleteBtn.setOnClickListener {
+
+            db.collection("Post").whereEqualTo("postUid", postUid).addSnapshotListener { documents, _ ->
+
+                for (document in documents!!){
+                    var commentUid: ArrayList<Any>? = ArrayList()
+                    commentUid = document.get("commentList") as ArrayList<Any>?
+                    if (commentUid!!.size == 0) {
+
+                    } else {
+                        for (i in commentUid){
+                            db.collection("Comment").document(i.toString()).delete()
+                                .addOnSuccessListener {
+
+                                }
+                        }
+
+                    }
+                }
+
+            }
 
 
+            db.collection("User").document(userUid).update("writeCount", FieldValue.increment(-1))
+//            db.collection("User").document(userUid)
+//                .update("submit", FieldValue.arrayRemove(uid))
+            db.collection("Post").document(postUid.toString()).delete().addOnSuccessListener {
+
+
+            }
+
+            finish()
         }
         binding.btnComment.setOnClickListener {
-            if (binding.editTextComment.text.isNullOrBlank()){
+            if (binding.editTextComment.text.isNullOrBlank()) {
                 Toast.makeText(this, "작성된 댓글이 없습니다.", Toast.LENGTH_SHORT).show()
-            }else{
+            } else {
                 hideKeyboard()
                 var commentDataClass = CommentDataClass()
-                commentDataClass.name = name
+                commentDataClass.name = userName
                 commentDataClass.context = binding.editTextComment.text.toString()
-                commentDataClass.userUid = uid
+                commentDataClass.userUid = userUid
                 commentDataClass.postUid = postUid
                 commentDataClass.pubDate = nowDate.toString()
                 binding.editTextComment.setText("")
@@ -110,6 +145,10 @@ class PostDetailActivity : AppCompatActivity() {
                         val doId = documentReference.id
                         db.collection("Comment")
                             .document(doId).update("uid", doId)
+                        db.collection("Post")
+                            .document(postUid.toString())
+                            .update("commentList", FieldValue.arrayUnion(doId))
+
                     }
                     .addOnFailureListener { e ->
 
@@ -118,8 +157,8 @@ class PostDetailActivity : AppCompatActivity() {
         }
 
 
-
     }
+
     fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.postDetail.windowToken, 0)

@@ -11,4 +11,5 @@ data class PostDataClass(
     var view: Int? = null,
     var type: String? = null,
     var postUid: String? = null,
+    var commentList: ArrayList<Any>? = ArrayList(),
 )

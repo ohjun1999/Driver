@@ -80,6 +80,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
+                    android:id="@+id/goMyWrite"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
@@ -109,7 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="100"
+                        android:text=""
                         android:textColor="@color/kingRed"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="@id/img1"
@@ -119,7 +120,7 @@
                         android:id="@+id/text2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="개"
+                        android:text="건"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="@id/writeCount"
@@ -138,6 +139,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/goMySubmit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -168,7 +170,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="3"
+                        android:text=""
                         android:textColor="@color/kingRed"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="@id/img3"
@@ -178,7 +180,7 @@
                         android:id="@+id/text4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="개"
+                        android:text="건"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="@id/submitCount"
@@ -197,6 +199,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/goMyProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_go_arrow"
@@ -213,6 +216,7 @@
                 android:background="@color/black12" />
 
             <TextView
+                android:id="@+id/goMyCar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_go_arrow"
@@ -229,6 +233,7 @@
                 android:background="@color/black12" />
 
             <TextView
+                android:id="@+id/goMyPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_go_arrow"
@@ -245,6 +250,7 @@
                 android:background="@color/black12" />
 
             <TextView
+                android:id="@+id/goAlarm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_go_arrow"
@@ -261,6 +267,7 @@
                 android:background="@color/black12" />
 
             <TextView
+                android:id="@+id/goManual"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_go_arrow"
@@ -277,6 +284,7 @@
                 android:background="@color/black12" />
 
             <TextView
+                android:id="@+id/goMyGrade"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_go_arrow"
@@ -293,6 +301,7 @@
                 android:background="@color/black12" />
 
             <TextView
+                android:id="@+id/goLogout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_go_arrow"

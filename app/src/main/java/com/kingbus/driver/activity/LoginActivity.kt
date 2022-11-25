@@ -13,7 +13,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.kingbus.driver.MySharedPreferences
 import com.kingbus.driver.databinding.ActivityLoginBinding
-import com.kingbus.driver.dataclass.PostDataClass
 import com.kingbus.driver.dataclass.UserDataClass
 
 class LoginActivity : AppCompatActivity() {
@@ -65,6 +64,7 @@ class LoginActivity : AppCompatActivity() {
                                     val password = document.getString("password").toString()
                                     val name = document.getString("name").toString()
                                     val uid = document.getString("uid").toString()
+                                    val submit = document.get("submit").toString()
 //                        val isValidPassword = BCrypt.checkpw(inputPassword, user.password.toString())
 //
 
@@ -72,18 +72,17 @@ class LoginActivity : AppCompatActivity() {
                                     if (id == inputId && password == inputPassword) {
 
                                         MySharedPreferences.setUserUid(this, uid)
-
+                                        MySharedPreferences.setSubmit(this, submit)
+                                        MySharedPreferences.setName(this, name)
                                         if (binding.maintainCheck.isChecked) {
-
+                                            MySharedPreferences.setLogin(this, "check")
                                             val intent = Intent(this, MainActivity::class.java)
-                                            intent.putExtra("content", "원하는 데이터를 보냅니다.")
                                             intent.putExtra("name", name)
                                             intent.putExtra("uid", uid)
                                             startActivity(intent)
                                             finish()
                                         } else {
                                             val intent = Intent(this, MainActivity::class.java)
-                                            intent.putExtra("content", "원하는 데이터를 보냅니다.")
                                             intent.putExtra("name", name)
                                             intent.putExtra("uid", uid)
                                             startActivity(intent)

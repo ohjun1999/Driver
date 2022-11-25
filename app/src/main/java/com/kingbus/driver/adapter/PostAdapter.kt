@@ -21,7 +21,7 @@ import com.kingbus.driver.activity.MainActivity
 import com.kingbus.driver.activity.PostDetailActivity
 import com.kingbus.driver.dataclass.PostDataClass
 
-class PostAdapter (
+class PostAdapter(
     val context: Context,
     private val postList: ArrayList<PostDataClass>,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -47,7 +47,12 @@ class PostAdapter (
         holder.postName.text = post.name
         holder.postTitle.text = post.title
         holder.postPubDate.text = post.pubDate
-        holder.countComment.visibility = View.GONE
+        if (post.commentList?.size == 0){
+            holder.countComment.visibility = View.GONE
+        }else{
+            holder.countComment.text = "(" + post.commentList?.size.toString() + ")"
+        }
+
 
 //        if (user.email == null) {
 //            holder.mailAdress.text = null
@@ -75,7 +80,7 @@ class PostAdapter (
             intent.putExtra("title", post.title)
             intent.putExtra("name", post.name)
             intent.putExtra("pubDate", post.pubDate)
-            intent.putExtra("comment", post.comment.toString())
+            intent.putExtra("comment", post.commentList?.size.toString())
             intent.putExtra("uid", post.uid)
             intent.putExtra("context", post.context)
             intent.putExtra("view", post.view.toString())
