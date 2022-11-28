@@ -48,6 +48,8 @@ class MyInfoChangeActivity : AppCompatActivity() {
         }
 
 
+
+
         binding.province.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
@@ -411,7 +413,68 @@ class MyInfoChangeActivity : AppCompatActivity() {
                 }
             }
         }
+        binding.saveBtn.setOnClickListener {
 
+            db.collection("User").document(uid.toString()).update("name", binding.nameInfo.text)
+            db.collection("User").document(uid.toString())
+                .update("company", binding.companyInfo.text)
+            db.collection("User").document(uid.toString()).update("province", cityType)
+            if (cityType == "서울시") {
+
+                val city = binding.seoul.selectedItem.toString()
+                db.collection("User").document(uid.toString()).update("city", city)
+            } else if (cityType == "경기도") {
+                val city = binding.gyeonggi.selectedItem.toString()
+                db.collection("User").document(uid.toString()).update("city", city)
+            } else if (cityType == "인천시") {
+                val city = binding.incheon.selectedItem.toString()
+                db.collection("User").document(uid.toString()).update("city", city)
+            } else if (cityType == "충청북도") {
+                val city = binding.chungcheongbuk.selectedItem.toString()
+                db.collection("User").document(uid.toString()).update("city", city)
+            } else if (cityType == "충청남도") {
+                val city = binding.chungcheongnam.selectedItem.toString()
+                db.collection("User").document(uid.toString()).update("city", city)
+            } else if (cityType == "강원도") {
+                val city = binding.gangwon.selectedItem.toString()
+                db.collection("User").document(uid.toString()).update("city", city)
+            } else if (cityType == "경상북도") {
+                val city = binding.gyeongsangbuk.selectedItem.toString()
+                db.collection("User").document(uid.toString()).update("city", city)
+            } else if (cityType == "경상남도") {
+                val city = binding.gyeongsangnam.selectedItem.toString()
+                db.collection("User").document(uid.toString()).update("city", city)
+            } else if (cityType == "전라북도") {
+                val city = binding.jeollabuk.selectedItem.toString()
+                db.collection("User").document(uid.toString()).update("city", city)
+            } else if (cityType == "전라남도") {
+                val city = binding.jeollanam.selectedItem.toString()
+                db.collection("User").document(uid.toString()).update("city", city)
+            } else if (cityType == "제주도") {
+                val city = binding.jeju.selectedItem.toString()
+                db.collection("User").document(uid.toString()).update("city", city)
+            } else if (cityType == "부산시") {
+                val city = binding.busan.selectedItem.toString()
+                db.collection("User").document(uid.toString()).update("city", city)
+            } else if (cityType == "광주시") {
+                val city = binding.gwangju.selectedItem.toString()
+                db.collection("User").document(uid.toString()).update("city", city)
+            } else if (cityType == "대구시") {
+                val city = binding.daegu.selectedItem.toString()
+                db.collection("User").document(uid.toString()).update("city", city)
+            }else if (cityType == "대전시") {
+                val city = binding.daejeon.selectedItem.toString()
+                db.collection("User").document(uid.toString()).update("city", city)
+            }else if (cityType == "세종시") {
+                val city = binding.sejong.selectedItem.toString()
+                db.collection("User").document(uid.toString()).update("city", city)
+            }else if (cityType == "울산시") {
+                val city = binding.ulsan.selectedItem.toString()
+                db.collection("User").document(uid.toString()).update("city", city)
+            }
+            finish()
+
+        }
 
     }
 

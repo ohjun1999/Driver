@@ -1,7 +1,10 @@
 package com.kingbus.driver.fragment
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +43,15 @@ class ExtraFragment : Fragment() {
             for (document in documents!!) {
                 binding.myBelong.text =
                     document.getString("province") + " " + document.getString("city")
-                binding.writeCount.text = document.get("writeCount").toString()
+
+
+                if (document.get("writeCount") == null){
+                    binding.writeCount.text = "0"
+
+                }else{
+                    binding.writeCount.text = document.get("writeCount").toString()
+
+                }
                 var submit: ArrayList<String> = document.get("submit") as ArrayList<String>
                 binding.submitCount.text = submit.size.toString()
 
@@ -70,6 +81,18 @@ class ExtraFragment : Fragment() {
 //            val intent = Intent(activity, MyWriteActivity::class.java)
 //            startActivity(intent)
 //        }
+
+        binding.goAlarm.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                intent.putExtra(Settings.EXTRA_APP_PACKAGE, context?.packageName)
+                try {
+                    startActivity(intent)
+                } catch (e: ActivityNotFoundException) {
+
+                }
+            }
+        }
         binding.goMyPassword.setOnClickListener {
             val intent = Intent(activity, PasswordChangeActivity::class.java)
             intent.putExtra("uid", myUid)

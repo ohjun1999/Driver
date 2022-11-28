@@ -46,9 +46,12 @@ class PasswordChangeActivity : AppCompatActivity() {
 
                         if (binding.nowPassword.text.toString() == password.toString()) {
                             if (binding.newPassword.text.toString() == binding.confirmPassword.text.toString()) {
-                                if (binding.newPassword.text != null && binding.newPassword.text != null) {
-                                    Toast.makeText(this, "비밀번호가 일치합니다.", Toast.LENGTH_SHORT).show()
+                                if (binding.newPassword.text.trim().isEmpty() || binding.nowPassword.text.trim().isEmpty()) {
+                                    Toast.makeText(this, "빈칸을 채워주십시오", Toast.LENGTH_SHORT).show()
 
+                                }else{
+                                    Toast.makeText(this, "비밀번호가 변경 되었습니다.", Toast.LENGTH_SHORT).show()
+                                    db.collection("User").document(document.id).update("password", binding.newPassword.text.toString())
                                 }
 
                             } else {
