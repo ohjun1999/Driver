@@ -5,6 +5,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\ohjun\\AndroidStudioProjects\\Driver\\app\\driverReleaseKey.jks')
+            storePassword 'y1162419!'
+            keyAlias 'releaseKey'
+            keyPassword 'y1162419!'
+        }
+    }
     compileSdk 32
 
     defaultConfig {

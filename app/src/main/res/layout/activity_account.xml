@@ -361,7 +361,128 @@
                                 android:entries="@array/city"
                                 android:padding="13dp"
                                 android:visibility="gone" />
+                            <Spinner
+                                android:id="@+id/chungcheongbuk"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/spinner_back"
+                                android:entries="@array/chungcheongbuk"
+                                android:padding="13dp"
+                                android:visibility="gone" />
+                            <Spinner
+                                android:id="@+id/chungcheongnam"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/spinner_back"
+                                android:entries="@array/chungcheongnam"
+                                android:padding="13dp"
+                                android:visibility="gone" />
+                            <Spinner
+                                android:id="@+id/gangwon"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/spinner_back"
+                                android:entries="@array/gangwon"
+                                android:padding="13dp"
+                                android:visibility="gone" />
+                            <Spinner
+                                android:id="@+id/gyeongsangbuk"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/spinner_back"
+                                android:entries="@array/gyeongsangbuk"
+                                android:padding="13dp"
+                                android:visibility="gone" />
+                            <Spinner
+                                android:id="@+id/gyeongsangnam"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/spinner_back"
+                                android:entries="@array/gyeongsangnam"
+                                android:padding="13dp"
+                                android:visibility="gone" />
+                            <Spinner
+                                android:id="@+id/jeollabuk"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/spinner_back"
+                                android:entries="@array/jeollabuk"
+                                android:padding="13dp"
+                                android:visibility="gone" />
+                            <Spinner
+                                android:id="@+id/jeollanam"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/spinner_back"
+                                android:entries="@array/jeollanam"
+                                android:padding="13dp"
+                                android:visibility="gone" />
+                            <Spinner
+                                android:id="@+id/jeju"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/spinner_back"
+                                android:entries="@array/jeju"
+                                android:padding="13dp"
+                                android:visibility="gone" />
+                            <Spinner
+                                android:id="@+id/incheon"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/spinner_back"
+                                android:entries="@array/incheon"
+                                android:padding="13dp"
+                                android:visibility="gone" />
+                            <Spinner
+                                android:id="@+id/busan"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/spinner_back"
+                                android:entries="@array/busan"
+                                android:padding="13dp"
+                                android:visibility="gone" />
+                            <Spinner
+                                android:id="@+id/gwangju"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/spinner_back"
+                                android:entries="@array/gwangju"
+                                android:padding="13dp"
+                                android:visibility="gone" />
+                            <Spinner
+                                android:id="@+id/daegu"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/spinner_back"
+                                android:entries="@array/daegu"
+                                android:padding="13dp"
+                                android:visibility="gone" />
+                            <Spinner
+                                android:id="@+id/daejeon"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/spinner_back"
+                                android:entries="@array/daejeon"
+                                android:padding="13dp"
+                                android:visibility="gone" />
+                            <Spinner
+                                android:id="@+id/sejong"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/spinner_back"
+                                android:entries="@array/sejong"
+                                android:padding="13dp"
+                                android:visibility="gone" />
+                            <Spinner
+                                android:id="@+id/ulsan"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/spinner_back"
+                                android:entries="@array/ulsan"
+                                android:padding="13dp"
+                                android:visibility="gone" />
                         </FrameLayout>
+
 
                     </LinearLayout>
                 </LinearLayout>
