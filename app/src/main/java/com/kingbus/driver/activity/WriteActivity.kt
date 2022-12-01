@@ -1,18 +1,28 @@
 package com.kingbus.driver.activity
 
+import android.Manifest
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.kingbus.driver.MySharedPreferences
 import com.kingbus.driver.databinding.ActivityWriteBinding
 import com.kingbus.driver.dataclass.JobDataClass
 import com.kingbus.driver.dataclass.PostDataClass
@@ -25,8 +35,11 @@ class WriteActivity : AppCompatActivity() {
 
     lateinit var db: FirebaseFirestore
     lateinit var auth: FirebaseAuth
-
-
+    private var viewProfile: View? = null
+    var pickImageFromAlbum = 0
+    var fbStorage: FirebaseStorage? = null
+    var uriPhoto: Uri? = null
+    lateinit var multiImageRecyclerView: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // binding class 인스턴스 생성
@@ -45,6 +58,8 @@ class WriteActivity : AppCompatActivity() {
         binding.backKey.setOnClickListener {
             finish()
         }
+        multiImageRecyclerView = binding.multiImageRecyclerView
+        viewProfile = binding.imgBtn
         //아이템 선택 리스너
         binding.postType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -95,6 +110,30 @@ class WriteActivity : AppCompatActivity() {
                 }
             }
         }
+        fbStorage = FirebaseStorage.getInstance()
+        binding.imgBtn.setOnClickListener {
+            var intent = Intent(Intent.ACTION_PICK)
+            intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(intent, 200)
+
+//            ActivityCompat.requestPermissions(
+//                this,
+//                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+//                1
+//            )
+//            var photoPickerIntent = Intent(Intent.ACTION_PICK)
+//            photoPickerIntent.type = "image/*"
+//            startActivityForResult(photoPickerIntent, pickImageFromAlbum)
+
+        }
+
+        val layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        multiImageRecyclerView.layoutManager = layoutManager
+
+
+
 
         binding.endBtn.setOnClickListener {
 
@@ -109,7 +148,6 @@ class WriteActivity : AppCompatActivity() {
                 binding.year.selectedItem.toString() + "." + binding.month.selectedItem.toString() + "." + binding.date.selectedItem.toString()
             jobDataClass.context = binding.editTextContent2.text.toString()
             jobDataClass.userUid = uid.toString()
-
             var postDataClass = PostDataClass()
             postDataClass.uid = uid.toString()
             postDataClass.title = binding.editTextTitle.text.toString()
@@ -119,6 +157,7 @@ class WriteActivity : AppCompatActivity() {
             postDataClass.name = name.toString()
             postDataClass.view = 1
             postDataClass.pubDate = nowDate.toString()
+            funImageUpload(viewProfile!!)
             when (binding.postType.selectedItem.toString()) {
                 "[ 자유게시판 ]" -> {
 
@@ -210,6 +249,34 @@ class WriteActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    private fun funImageUpload(view: View) {
+        var timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        var imgFileName = "IMAGE_" + timeStamp + "_.png"
+        var storageRef = fbStorage?.reference?.child("image")?.child(imgFileName)
+
+        val imageUrl =
+            "https://firebasestorage.googleapis.com/v0/b/kingbus-driver.appspot.com/o/image%2F$imgFileName?alt=media"
+        MySharedPreferences.setImage(this, imageUrl)
+
+        storageRef?.putFile(uriPhoto!!)?.addOnSuccessListener {
+            Toast.makeText(this, "이미지 업로드", Toast.LENGTH_SHORT).show()
+
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == pickImageFromAlbum) {
+            if (resultCode == Activity.RESULT_OK) {
+                uriPhoto = data?.data
+                binding.imgBtn.setImageURI(uriPhoto)
+
+
+            }
+        }
     }
 
     fun hideKeyboard() {

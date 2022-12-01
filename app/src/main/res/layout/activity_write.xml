@@ -118,6 +118,36 @@
                     android:gravity="top"
                     android:hint="내용을 입력해주세요"
                     android:padding="16dp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="16dp">
+
+                    <ImageView
+                        android:id="@+id/imgBtn"
+                        android:src="@drawable/ic_get_img"
+                        android:layout_gravity="center"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/multiImageRecyclerView"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"/>
+
+
+                </LinearLayout>
+
+
+
             </LinearLayout>
 
             <LinearLayout

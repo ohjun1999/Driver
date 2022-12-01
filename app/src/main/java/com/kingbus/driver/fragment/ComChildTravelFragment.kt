@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.kingbus.driver.activity.MainActivity
@@ -38,7 +39,7 @@ class ComChildTravelFragment : Fragment() {
         travelRecyclerView = binding.travelRecyclerView
         var postList = arrayListOf<PostDataClass>()
 
-        db.collection("Post").whereEqualTo("type","여행").addSnapshotListener { documents, _ ->
+        db.collection("Post").whereEqualTo("type","여행").orderBy("pubDate", Query.Direction.DESCENDING).addSnapshotListener { documents, _ ->
             postList.clear()
             for (document in documents!!) {
                 Log.d(document.id, document.data.toString())

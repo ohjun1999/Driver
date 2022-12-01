@@ -34,7 +34,16 @@
             android:gravity="center"
             android:text="여행"
             android:textColor="@drawable/selector_radio_text" />
-
+        <RadioButton
+            android:id="@+id/btn5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_radio_button"
+            android:button="@null"
+            android:gravity="center"
+            android:text="중고차"
+            android:textColor="@drawable/selector_radio_text" />
         <RadioButton
             android:id="@+id/btn1"
             android:layout_width="0dp"

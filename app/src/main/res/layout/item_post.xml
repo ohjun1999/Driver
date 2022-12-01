@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/post_bottom"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +22,6 @@
 
         <TextView
             android:id="@+id/postTitle"
-            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
@@ -36,12 +36,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:layout_marginStart="5dp"
-            android:textColor="@color/kingRed"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/postTitle"
-            app:layout_constraintStart_toEndOf="@+id/postTitle"
-            app:layout_constraintTop_toTopOf="@+id/postTitle" />
+            app:layout_constraintBottom_toBottomOf="@+id/textView6"
+            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintTop_toTopOf="@+id/textView6" />
+
+        <TextView
+            android:id="@+id/countView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginStart="5dp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/countComment"
+            app:layout_constraintStart_toEndOf="@+id/countComment"
+            app:layout_constraintTop_toTopOf="@+id/countComment" />
 
         <TextView
             android:id="@+id/postName"
@@ -50,6 +59,7 @@
             android:layout_height="wrap_content"
             android:text="최원빈"
             android:textSize="15sp"
+            android:textColor="@color/nameBlue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/postTitle"
             app:layout_constraintTop_toBottomOf="@+id/postTitle" />
@@ -60,26 +70,19 @@
             android:layout_height="wrap_content"
             android:text="2022.08.22 12:00"
             app:layout_constraintBottom_toBottomOf="@+id/textView6"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView6" />
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" ㅣ "
+            android:text="ㅣ"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@+id/postName"
             app:layout_constraintStart_toEndOf="@+id/postName"
             app:layout_constraintTop_toTopOf="@+id/postName" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/black45"
-        app:layout_constraintTop_toBottomOf="@id/postItem"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

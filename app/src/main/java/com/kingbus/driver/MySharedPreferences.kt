@@ -8,6 +8,8 @@ object MySharedPreferences {
     private val USER_SUBMIT: String = "submit"
     private val USER_NAME: String = "name"
     private val USER_LOGIN: String = "login"
+    private val USER_IMAGE: String = "image"
+
 
     fun setUserUid(context: Context, input: String) {
         val prefs: SharedPreferences =
@@ -55,6 +57,18 @@ object MySharedPreferences {
     fun getLogin(context: Context): String {
         val prefs: SharedPreferences =
             context.getSharedPreferences(USER_LOGIN, Context.MODE_PRIVATE)
+        return prefs.getString("MY_UID", "").toString()
+    }
+    fun setImage(context: Context, input: String?) {
+        val prefs: SharedPreferences =
+            context.getSharedPreferences(USER_IMAGE, Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = prefs.edit()
+        editor.putString("MY_UID", input)
+        editor.apply()
+    }
+    fun getImage(context: Context): String {
+        val prefs: SharedPreferences =
+            context.getSharedPreferences(USER_IMAGE, Context.MODE_PRIVATE)
         return prefs.getString("MY_UID", "").toString()
     }
 

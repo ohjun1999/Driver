@@ -415,9 +415,9 @@ class MyInfoChangeActivity : AppCompatActivity() {
         }
         binding.saveBtn.setOnClickListener {
 
-            db.collection("User").document(uid.toString()).update("name", binding.nameInfo.text)
+            db.collection("User").document(uid.toString()).update("name", binding.nameInfo.text.toString())
             db.collection("User").document(uid.toString())
-                .update("company", binding.companyInfo.text)
+                .update("company", binding.companyInfo.text.toString())
             db.collection("User").document(uid.toString()).update("province", cityType)
             if (cityType == "서울시") {
 

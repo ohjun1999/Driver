@@ -20,6 +20,9 @@ import com.kingbus.driver.R
 import com.kingbus.driver.activity.MainActivity
 import com.kingbus.driver.activity.PostDetailActivity
 import com.kingbus.driver.dataclass.PostDataClass
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PostAdapter(
     val context: Context,
@@ -44,14 +47,27 @@ class PostAdapter(
         val post: PostDataClass = postList[position]
         var db = Firebase.firestore
         var auth: FirebaseAuth = Firebase.auth
+        val now = System.currentTimeMillis()
+        val date = Date(now)
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd kk:mm", Locale("ko", "KR"))
+        val nowDate = dateFormat.format(date)
+
+        if (post.pubDate.toString().substring(0,10) == nowDate.toString().substring(0,10)){
+            holder.postPubDate.text = post.pubDate.toString().substring(11,16)
+        }else{
+            holder.postPubDate.text =   post.pubDate.toString().substring(0,10)
+        }
+
         holder.postName.text = post.name
         holder.postTitle.text = post.title
-        holder.postPubDate.text = post.pubDate
+//        holder.postPubDate.text = post.pubDate
+
         if (post.commentList?.size == 0){
-            holder.countComment.visibility = View.GONE
+            holder.countComment.text ="댓글 " + "0"
         }else{
-            holder.countComment.text = "(" + post.commentList?.size.toString() + ")"
+            holder.countComment.text = "댓글 " + post.commentList?.size.toString()
         }
+        holder.countView.text = "조회 " + post.view.toString()
 
 
 //        if (user.email == null) {
@@ -105,6 +121,7 @@ class PostAdapter(
         val postTitle: TextView = itemView.findViewById(R.id.postTitle)
         val postName: TextView = itemView.findViewById(R.id.postName)
         val countComment: TextView = itemView.findViewById(R.id.countComment)
+        val countView: TextView = itemView.findViewById(R.id.countView)
         val postPubDate: TextView = itemView.findViewById(R.id.postPubDate)
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
 

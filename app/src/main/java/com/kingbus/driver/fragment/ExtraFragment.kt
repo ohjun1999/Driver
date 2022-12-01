@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -43,12 +44,21 @@ class ExtraFragment : Fragment() {
             for (document in documents!!) {
                 binding.myBelong.text =
                     document.getString("province") + " " + document.getString("city")
+                val imageUrl = document.getString("imageUri").toString()
 
-
-                if (document.get("writeCount") == null){
-                    binding.writeCount.text = "0"
+                if (imageUrl == "null"){
 
                 }else{
+                    Glide.with(this)
+                        .load(imageUrl)
+                        .into(binding.imageView6)
+                }
+
+
+                if (document.get("writeCount") == null) {
+                    binding.writeCount.text = "0"
+
+                } else {
                     binding.writeCount.text = document.get("writeCount").toString()
 
                 }
@@ -59,6 +69,7 @@ class ExtraFragment : Fragment() {
             }
 
         }
+
 
         binding.goMyWrite.setOnClickListener {
             val intent = Intent(activity, MyWriteActivity::class.java)

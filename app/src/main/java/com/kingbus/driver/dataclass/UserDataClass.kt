@@ -35,6 +35,8 @@ data class UserDataClass(
     //전세버스, 일반회원, 제휴업체
     var writeCount: Int? = null,
 
+    var imageUri: String? = null,
+
     var submit: ArrayList<Any>? = ArrayList(),
 
     )

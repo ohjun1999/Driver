@@ -11,13 +11,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.kingbus.driver.R
 import com.kingbus.driver.activity.MainActivity
 import com.kingbus.driver.adapter.DriverAdapter
 import com.kingbus.driver.adapter.PostAdapter
 import com.kingbus.driver.databinding.FragmentFreeBinding
 import com.kingbus.driver.dataclass.PostDataClass
+import kotlinx.coroutines.*
 
 class ComChildFreeFragment : Fragment() {
     var firestore: FirebaseFirestore? = null
@@ -26,6 +29,7 @@ class ComChildFreeFragment : Fragment() {
     lateinit var db: FirebaseFirestore
     lateinit var auth: FirebaseAuth
     lateinit var freeRecyclerView: RecyclerView
+    lateinit var job: Job
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,9 +43,9 @@ class ComChildFreeFragment : Fragment() {
         freeRecyclerView = binding.freeRecyclerView
         var postList = arrayListOf<PostDataClass>()
 
-        db.collection("Post").whereEqualTo("type", "자유").addSnapshotListener { documents, _ ->
+        db.collection("Post").whereEqualTo("type", "자유").orderBy("pubDate",Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
             postList.clear()
-            for (document in documents!!) {
+            for (document in documents) {
                 Log.d(document.id, document.data.toString())
                 var item = document.toObject(PostDataClass::class.java)
                 postList.add(item)
@@ -53,6 +57,24 @@ class ComChildFreeFragment : Fragment() {
                 LinearLayoutManager(MainActivity(), RecyclerView.VERTICAL, false)
 
 
+        }
+        binding.refresh.setOnRefreshListener {
+            binding.refresh.isRefreshing=false
+            db.collection("Post").whereEqualTo("type", "자유").orderBy("pubDate",Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
+                postList.clear()
+                for (document in documents) {
+                    Log.d(document.id, document.data.toString())
+                    var item = document.toObject(PostDataClass::class.java)
+                    postList.add(item)
+                }
+                val postAdapter =
+                    PostAdapter(MainActivity(), postList)
+                freeRecyclerView.adapter = postAdapter
+                freeRecyclerView.layoutManager =
+                    LinearLayoutManager(MainActivity(), RecyclerView.VERTICAL, false)
+
+
+            }
         }
 
         return root

@@ -1,6 +1,11 @@
 package com.kingbus.driver.activity
 
+import android.Manifest
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
 import android.util.Log
@@ -9,6 +14,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
@@ -18,8 +25,12 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.kingbus.driver.MySharedPreferences
 import com.kingbus.driver.databinding.ActivityAccountBinding
 import com.kingbus.driver.dataclass.UserDataClass
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class AccountActivity : AppCompatActivity() {
@@ -28,6 +39,10 @@ class AccountActivity : AppCompatActivity() {
     var verificationId = ""
     lateinit var db: FirebaseFirestore
     lateinit var auth: FirebaseAuth
+    private var viewProfile: View? = null
+    var pickImageFromAlbum = 0
+    var fbStorage: FirebaseStorage? = null
+    var uriPhoto: Uri? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,13 +58,26 @@ class AccountActivity : AppCompatActivity() {
 
         binding.btnMale.isChecked
         // 성별 라디오 버튼 체크설정
+        viewProfile = binding.imgBtn
 
 
+        fbStorage = FirebaseStorage.getInstance()
         var userType = "전세버스"
         var cityType = "서울"
 
         binding.main.setOnClickListener {
             hideKeyboard()
+        }
+
+        binding.imgBtn.setOnClickListener {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                1
+            )
+            var photoPickerIntent = Intent(Intent.ACTION_PICK)
+            photoPickerIntent.type = "image/*"
+            startActivityForResult(photoPickerIntent, pickImageFromAlbum)
         }
 
 
@@ -71,13 +99,14 @@ class AccountActivity : AppCompatActivity() {
                         if (document.exists()) {
                             checkId = "X"
                             Toast.makeText(this, "사용하고 있는 아이디 입니다.", Toast.LENGTH_SHORT).show()
-                        } else if (!document.exists()) {
+                        } else {
                             checkId = "O"
                             Toast.makeText(this, "사용 가능한 아이디 입니다.", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
         }
+
         binding.userType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
@@ -109,7 +138,7 @@ class AccountActivity : AppCompatActivity() {
                                 )
                                     .show()
 
-                            }else if (checkId == "X") {
+                            } else if (checkId == "X") {
                                 Toast.makeText(
                                     this@AccountActivity,
                                     "이미 사용하고 있는 아이디입니다.",
@@ -133,6 +162,10 @@ class AccountActivity : AppCompatActivity() {
                                 userDataClass.writeCount = 0
                                 userDataClass.province = cityType
                                 userDataClass.phoneNum = binding.phoneNum.text.toString()
+
+                                funImageUpload(viewProfile!!)
+                                userDataClass.imageUri = MySharedPreferences.getImage(this@AccountActivity)
+
 
 
                                 if (cityType == "서울시") {
@@ -207,7 +240,7 @@ class AccountActivity : AppCompatActivity() {
                         genderL.visibility = View.VISIBLE
                         companyAdrL.visibility = View.GONE
                         binding.authBtn.setOnClickListener {
-                            if (binding.nameInfo.text.isNullOrBlank() || binding.idInfo.text.isNullOrBlank() || binding.passwordInfo.text.isNullOrBlank() || binding.companyName.text.isNullOrBlank() || binding.phoneNum.text.isNullOrBlank()) {
+                            if (binding.nameInfo.text.isNullOrBlank() || binding.idInfo.text.isNullOrBlank() || binding.passwordInfo.text.isNullOrBlank() || binding.phoneNum.text.isNullOrBlank()) {
                                 Toast.makeText(
                                     this@AccountActivity,
                                     "모든 정보가 입력 되지 않았습니다.",
@@ -215,7 +248,7 @@ class AccountActivity : AppCompatActivity() {
                                 )
                                     .show()
 
-                            }else if (checkId == "X") {
+                            } else if (checkId == "X") {
                                 Toast.makeText(
                                     this@AccountActivity,
                                     "이미 사용하고 있는 아이디입니다.",
@@ -230,7 +263,11 @@ class AccountActivity : AppCompatActivity() {
                                 )
                                     .show()
                             } else {
+
+
                                 var userDataClass = UserDataClass()
+                                funImageUpload(viewProfile!!)
+                                userDataClass.imageUri = MySharedPreferences.getImage(this@AccountActivity)
                                 userDataClass.name = binding.nameInfo.text.toString()
                                 userDataClass.loginCheck = "X"
                                 userDataClass.writeCount = 0
@@ -326,7 +363,7 @@ class AccountActivity : AppCompatActivity() {
                                 )
                                     .show()
 
-                            }else if (checkId == "X") {
+                            } else if (checkId == "X") {
                                 Toast.makeText(
                                     this@AccountActivity,
                                     "이미 사용하고 있는 아이디입니다.",
@@ -341,7 +378,11 @@ class AccountActivity : AppCompatActivity() {
                                 )
                                     .show()
                             } else {
+
+
                                 var userDataClass = UserDataClass()
+                                funImageUpload(viewProfile!!)
+                                userDataClass.imageUri = MySharedPreferences.getImage(this@AccountActivity)
                                 userDataClass.name = binding.nameInfo.text.toString()
                                 userDataClass.loginCheck = "X"
                                 userDataClass.id = binding.idInfo.text.toString()
@@ -390,10 +431,19 @@ class AccountActivity : AppCompatActivity() {
                                     userDataClass.city = binding.ulsan.selectedItem.toString()
                                 }
 
+
                                 userDataClass.company = binding.companyName.text.toString()
                                 userDataClass.companyAdr = binding.companyAdr.text.toString()
                                 userDataClass.sector = binding.sectorType.selectedItem.toString()
 
+                                if (ContextCompat.checkSelfPermission(
+                                        viewProfile!!.context,
+                                        Manifest.permission.READ_EXTERNAL_STORAGE
+                                    ) == PackageManager.PERMISSION_GRANTED
+                                ) {
+
+
+                                }
                                 db.collection("User")
                                     .add(userDataClass)
                                     .addOnSuccessListener { documentReference ->
@@ -819,7 +869,7 @@ class AccountActivity : AppCompatActivity() {
                     .build()
                 PhoneAuthProvider.verifyPhoneNumber(options)
                 auth.setLanguageCode("kr")
-              
+
 
             }
 
@@ -905,7 +955,39 @@ class AccountActivity : AppCompatActivity() {
     }
 
 
+    //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if(requestCode==IMAGE_PICK&&resultCode== Activity.RESULT_OK){
+//            selectImage=data?.data
+//            imageIv.setImageURI(selectImage)
+//        }
+//    }
+    private fun funImageUpload(view: View) {
+        var timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        var imgFileName = "IMAGE_" + timeStamp + "_.png"
+        var storageRef = fbStorage?.reference?.child("image")?.child(imgFileName)
 
+        val imageUrl = "https://firebasestorage.googleapis.com/v0/b/kingbus-driver.appspot.com/o/image%2F$imgFileName?alt=media"
+      MySharedPreferences.setImage(this, imageUrl)
+
+        storageRef?.putFile(uriPhoto!!)?.addOnSuccessListener {
+            Toast.makeText(this, "이미지 업로드", Toast.LENGTH_SHORT).show()
+
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == pickImageFromAlbum) {
+            if (resultCode == Activity.RESULT_OK) {
+                uriPhoto = data?.data
+                binding.imgBtn.setImageURI(uriPhoto)
+
+
+            }
+        }
+    }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         auth.signInWithCredential(credential)
@@ -920,6 +1002,7 @@ class AccountActivity : AppCompatActivity() {
                 }
             }
     }
+
     fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.main.windowToken, 0)
