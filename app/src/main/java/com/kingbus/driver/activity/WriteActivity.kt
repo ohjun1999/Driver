@@ -7,6 +7,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
@@ -23,16 +24,20 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.kingbus.driver.MySharedPreferences
+import com.kingbus.driver.adapter.MultiImageAdapter
 import com.kingbus.driver.databinding.ActivityWriteBinding
 import com.kingbus.driver.dataclass.JobDataClass
 import com.kingbus.driver.dataclass.PostDataClass
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class WriteActivity : AppCompatActivity() {
     // lateinit 사용
     private lateinit var binding: ActivityWriteBinding
 
+    var list = ArrayList<Uri>()
+    val adapter = MultiImageAdapter(list, this)
     lateinit var db: FirebaseFirestore
     lateinit var auth: FirebaseAuth
     private var viewProfile: View? = null
@@ -118,6 +123,7 @@ class WriteActivity : AppCompatActivity() {
             intent.action = Intent.ACTION_GET_CONTENT
             startActivityForResult(intent, 200)
 
+
 //            ActivityCompat.requestPermissions(
 //                this,
 //                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
@@ -131,6 +137,7 @@ class WriteActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         multiImageRecyclerView.layoutManager = layoutManager
+        multiImageRecyclerView.adapter = adapter
 
 
 
@@ -261,7 +268,6 @@ class WriteActivity : AppCompatActivity() {
         MySharedPreferences.setImage(this, imageUrl)
 
         storageRef?.putFile(uriPhoto!!)?.addOnSuccessListener {
-            Toast.makeText(this, "이미지 업로드", Toast.LENGTH_SHORT).show()
 
         }
 
@@ -269,14 +275,62 @@ class WriteActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == pickImageFromAlbum) {
-            if (resultCode == Activity.RESULT_OK) {
-                uriPhoto = data?.data
-                binding.imgBtn.setImageURI(uriPhoto)
 
+        if (resultCode == RESULT_OK && requestCode == 200) {
+            list.clear()
+
+            if (data?.clipData != null) {
+                //사진 여러장 선택한 경우
+                val count = data.clipData!!.itemCount
+                if (count > 10) {
+                    Toast.makeText(applicationContext, "사진은 10장까지 선택 가능합니다.", Toast.LENGTH_LONG)
+
+                    return
+                }
+                for (i in 0 until count) {
+                    var timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+                    var imgFileName = "IMAGE_" + timeStamp + "_" + i + "_.png"
+                    var storageRef = fbStorage?.reference?.child("image")?.child(imgFileName)
+
+                    val imageUrl =
+                        "https://firebasestorage.googleapis.com/v0/b/kingbus-driver.appspot.com/o/image%2F$imgFileName?alt=media"
+
+                    db.collection("Post")
+                        .document("PBcrQrDT50rnqBxmZ2F9").update("imgLink", FieldValue.arrayUnion(imageUrl))
+                    Log.d("test", imageUrl)
+
+                    val imageUri = data.clipData!!.getItemAt(i).uri
+                    list.add(imageUri)
+
+                    storageRef?.putFile(imageUri)?.addOnSuccessListener {
+
+                    }
+
+
+                }
+            } else { //단일선택
+                data?.data?.let { uri ->
+                    val imageUri: Uri? = data?.data
+                    if (imageUri != null) {
+                        list.add(imageUri)
+                    }
+
+                }
 
             }
+
+            adapter.notifyDataSetChanged()
+
         }
+
+//        if (requestCode == pickImageFromAlbum) {
+//            if (resultCode == Activity.RESULT_OK) {
+//                uriPhoto = data?.data
+//                binding.imgBtn.setImageURI(uriPhoto)
+//
+//
+//            }
+//        }
     }
 
     fun hideKeyboard() {

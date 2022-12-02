@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <ImageView
-        android:id="@+id/imgBtn"
+        android:id="@+id/imgOne"
         android:src="@drawable/ic_get_img"
         android:layout_gravity="center"
         android:layout_width="85dp"
