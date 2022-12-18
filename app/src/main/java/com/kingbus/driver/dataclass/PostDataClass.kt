@@ -12,4 +12,5 @@ data class PostDataClass(
     var type: String? = null,
     var postUid: String? = null,
     var commentList: ArrayList<Any>? = ArrayList(),
+    var imgLink: ArrayList<Any>? = ArrayList(),
 )

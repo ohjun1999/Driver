@@ -56,224 +56,457 @@
             app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/topLinear"
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/backWeakGray"
         android:orientation="vertical"
-        android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@id/saveBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/constraintLayout">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="이름"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-
-        <EditText
-            android:id="@+id/nameInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/login_back"
-            android:hint="이름"
-            android:padding="13dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="업체명"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-
-        <EditText
-            android:id="@+id/companyInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/login_back"
-            android:hint="업체명"
-            android:padding="13dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="지역"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
         <LinearLayout
+            android:id="@+id/topLinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            android:background="@color/backWeakGray"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <Spinner
-                android:id="@+id/province"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/typeL"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/spinner_back"
-                android:entries="@array/province"
-                android:padding="13dp" />
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
 
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="계정"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
 
-                <Spinner
-                    android:id="@+id/seoul"
+
+                <TextView
+                    android:id="@+id/typeInfo"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/spinner_back"
-                    android:entries="@array/seoul"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/login_back"
+                    android:padding="13dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/nameL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이름"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+
+                <EditText
+                    android:id="@+id/nameInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/login_back"
+                    android:hint="이름"
+                    android:padding="13dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/phoneNumL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전화번호"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+
+                <EditText
+                    android:id="@+id/phoneNumInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/login_back"
+                    android:hint="전화번호"
                     android:padding="13dp" />
 
-                <Spinner
-                    android:id="@+id/gyeonggi"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/spinner_back"
-                    android:entries="@array/city"
-                    android:padding="13dp"
-                    android:visibility="gone" />
-                <Spinner
-                    android:id="@+id/chungcheongbuk"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/spinner_back"
-                    android:entries="@array/chungcheongbuk"
-                    android:padding="13dp"
-                    android:visibility="gone" />
-                <Spinner
-                    android:id="@+id/chungcheongnam"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/spinner_back"
-                    android:entries="@array/chungcheongnam"
-                    android:padding="13dp"
-                    android:visibility="gone" />
-                <Spinner
-                    android:id="@+id/gangwon"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/spinner_back"
-                    android:entries="@array/gangwon"
-                    android:padding="13dp"
-                    android:visibility="gone" />
-                <Spinner
-                    android:id="@+id/gyeongsangbuk"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/spinner_back"
-                    android:entries="@array/gyeongsangbuk"
-                    android:padding="13dp"
-                    android:visibility="gone" />
-                <Spinner
-                    android:id="@+id/gyeongsangnam"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/spinner_back"
-                    android:entries="@array/gyeongsangnam"
-                    android:padding="13dp"
-                    android:visibility="gone" />
-                <Spinner
-                    android:id="@+id/jeollabuk"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/spinner_back"
-                    android:entries="@array/jeollabuk"
-                    android:padding="13dp"
-                    android:visibility="gone" />
-                <Spinner
-                    android:id="@+id/busan"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/spinner_back"
-                    android:entries="@array/busan"
-                    android:padding="13dp"
-                    android:visibility="gone" />
-                <Spinner
-                    android:id="@+id/jeollanam"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/spinner_back"
-                    android:entries="@array/jeollanam"
-                    android:padding="13dp"
-                    android:visibility="gone" />
-                <Spinner
-                    android:id="@+id/jeju"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/spinner_back"
-                    android:entries="@array/jeju"
-                    android:padding="13dp"
-                    android:visibility="gone" />
-                <Spinner
-                    android:id="@+id/incheon"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/spinner_back"
-                    android:entries="@array/incheon"
-                    android:padding="13dp"
-                    android:visibility="gone" />
-                <Spinner
-                    android:id="@+id/gwangju"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/spinner_back"
-                    android:entries="@array/gwangju"
-                    android:padding="13dp"
-                    android:visibility="gone" />
-                <Spinner
-                    android:id="@+id/daegu"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/spinner_back"
-                    android:entries="@array/daegu"
-                    android:padding="13dp"
-                    android:visibility="gone" />
-                <Spinner
-                    android:id="@+id/daejeon"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/spinner_back"
-                    android:entries="@array/daejeon"
-                    android:padding="13dp"
-                    android:visibility="gone" />
-                <Spinner
-                    android:id="@+id/sejong"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/spinner_back"
-                    android:entries="@array/sejong"
-                    android:padding="13dp"
-                    android:visibility="gone" />
-                <Spinner
-                    android:id="@+id/ulsan"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/spinner_back"
-                    android:entries="@array/ulsan"
-                    android:padding="13dp"
-                    android:visibility="gone" />
-            </FrameLayout>
+            </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/oldL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="나이"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+
+                <EditText
+                    android:id="@+id/oldInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/login_back"
+                    android:hint="나이"
+                    android:padding="13dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/companyNameL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="업체명"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+
+                <EditText
+                    android:id="@+id/companyInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/login_back"
+                    android:hint="업체명"
+                    android:padding="13dp" />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/companyAdressL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="업체주소"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+
+                <EditText
+                    android:id="@+id/companyAdressInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/login_back"
+                    android:hint="업체주소"
+                    android:padding="13dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/howCarL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="차량수"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+
+                <EditText
+                    android:id="@+id/howCarInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/login_back"
+                    android:hint="차량수"
+                    android:padding="13dp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/locateL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="지역"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/province"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/spinner_back"
+                        android:entries="@array/province"
+                        android:padding="13dp" />
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1">
+
+                        <Spinner
+                            android:id="@+id/seoul"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_back"
+                            android:entries="@array/seoul"
+                            android:padding="13dp" />
+
+                        <Spinner
+                            android:id="@+id/gyeonggi"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_back"
+                            android:entries="@array/city"
+                            android:padding="13dp"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/chungcheongbuk"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_back"
+                            android:entries="@array/chungcheongbuk"
+                            android:padding="13dp"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/chungcheongnam"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_back"
+                            android:entries="@array/chungcheongnam"
+                            android:padding="13dp"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/gangwon"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_back"
+                            android:entries="@array/gangwon"
+                            android:padding="13dp"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/gyeongsangbuk"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_back"
+                            android:entries="@array/gyeongsangbuk"
+                            android:padding="13dp"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/gyeongsangnam"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_back"
+                            android:entries="@array/gyeongsangnam"
+                            android:padding="13dp"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/jeollabuk"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_back"
+                            android:entries="@array/jeollabuk"
+                            android:padding="13dp"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/busan"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_back"
+                            android:entries="@array/busan"
+                            android:padding="13dp"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/jeollanam"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_back"
+                            android:entries="@array/jeollanam"
+                            android:padding="13dp"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/jeju"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_back"
+                            android:entries="@array/jeju"
+                            android:padding="13dp"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/incheon"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_back"
+                            android:entries="@array/incheon"
+                            android:padding="13dp"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/gwangju"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_back"
+                            android:entries="@array/gwangju"
+                            android:padding="13dp"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/daegu"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_back"
+                            android:entries="@array/daegu"
+                            android:padding="13dp"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/daejeon"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_back"
+                            android:entries="@array/daejeon"
+                            android:padding="13dp"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/sejong"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_back"
+                            android:entries="@array/sejong"
+                            android:padding="13dp"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/ulsan"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_back"
+                            android:entries="@array/ulsan"
+                            android:padding="13dp"
+                            android:visibility="gone" />
+                    </FrameLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/genderL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="성별"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+
+                </LinearLayout>
+
+                <RadioGroup
+                    android:id="@+id/gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/btnMale"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_radio_button_gender"
+                        android:button="@null"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:text="남성"
+                        android:textColor="@drawable/selector_radio_text" />
+
+                    <RadioButton
+                        android:id="@+id/btnFemale"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_radio_button_gender"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="여성"
+                        android:textColor="@drawable/selector_radio_text" />
+
+                </RadioGroup>
+            </LinearLayout>
 
         </LinearLayout>
 
+    </ScrollView>
 
-    </LinearLayout>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/saveBtn"
         android:layout_width="match_parent"

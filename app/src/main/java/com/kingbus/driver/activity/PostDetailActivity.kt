@@ -3,12 +3,16 @@ package com.kingbus.driver.activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
@@ -16,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.kingbus.driver.MySharedPreferences
+import com.kingbus.driver.R
 import com.kingbus.driver.adapter.CommentAdapter
 import com.kingbus.driver.adapter.PostAdapter
 import com.kingbus.driver.databinding.ActivityPostDetailBinding
@@ -32,7 +37,7 @@ class PostDetailActivity : AppCompatActivity() {
     lateinit var db: FirebaseFirestore
     lateinit var auth: FirebaseAuth
     lateinit var commentRecyclerView: RecyclerView
-
+    lateinit var albumImg: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -76,6 +81,32 @@ class PostDetailActivity : AppCompatActivity() {
         binding.backKey.setOnClickListener {
             finish()
         }
+        albumImg = binding.albumImg
+
+        var albumImgList = arrayListOf<String>()
+        db.collection("Post").whereEqualTo("postUid", postUid)
+            .get().addOnSuccessListener { documents ->
+
+
+                for (document in documents) {
+                    if (document.get("imgLink") == null) {
+                        binding.postImg.visibility = View.VISIBLE
+                        binding.albumImg.visibility =View.GONE
+                    } else {
+                        albumImgList = document.get("imgLink") as ArrayList<String>
+                    }
+
+
+                }
+                val realNoticeAdapter = RealNoticeAdapter(this, albumImgList)
+                albumImg.adapter = realNoticeAdapter
+                albumImg.layoutManager =
+                    LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+                Log.d("test12", albumImgList.toString())
+
+
+            }
+
         db.collection("Comment").whereEqualTo("postUid", postUid)
             .addSnapshotListener { documents, _ ->
                 commentList.clear()
@@ -94,25 +125,26 @@ class PostDetailActivity : AppCompatActivity() {
             }
         binding.deleteBtn.setOnClickListener {
 
-            db.collection("Post").whereEqualTo("postUid", postUid).addSnapshotListener { documents, _ ->
+            db.collection("Post").whereEqualTo("postUid", postUid)
+                .addSnapshotListener { documents, _ ->
 
-                for (document in documents!!){
-                    var commentUid: ArrayList<Any>? = ArrayList()
-                    commentUid = document.get("commentList") as ArrayList<Any>?
-                    if (commentUid!!.size == 0) {
+                    for (document in documents!!) {
+                        var commentUid: ArrayList<Any>? = ArrayList()
+                        commentUid = document.get("commentList") as ArrayList<Any>?
+                        if (commentUid!!.size == 0) {
 
-                    } else {
-                        for (i in commentUid){
-                            db.collection("Comment").document(i.toString()).delete()
-                                .addOnSuccessListener {
+                        } else {
+                            for (i in commentUid) {
+                                db.collection("Comment").document(i.toString()).delete()
+                                    .addOnSuccessListener {
 
-                                }
+                                    }
+                            }
+
                         }
-
                     }
-                }
 
-            }
+                }
 
 
             db.collection("User").document(userUid).update("writeCount", FieldValue.increment(-1))
@@ -157,6 +189,51 @@ class PostDetailActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    inner class RealNoticeAdapter(
+        val context: Context,
+        var albumImgList: ArrayList<String>,
+
+        ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        var firestore: FirebaseFirestore? = null
+        var db = Firebase.firestore
+        lateinit var auth: FirebaseAuth
+
+
+        override fun onCreateViewHolder(parent: ViewGroup, position: Int): RecyclerView.ViewHolder {
+            var view =
+                LayoutInflater.from(parent.context).inflate(R.layout.item_notice_img, parent, false)
+            val olcYear = albumImgList[position]
+
+
+
+            return ViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            var viewHolder = (holder as RealNoticeAdapter.ViewHolder).itemView
+            val notice = albumImgList[position]
+
+
+            Glide.with(holder.itemView)
+                .load(notice)
+                .into(holder.albumRealImg)
+
+
+        }
+
+        override fun getItemCount(): Int {
+            return albumImgList.size
+        }
+
+
+        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+            val albumRealImg: ImageView = itemView.findViewById(R.id.albumRealImg)
+
+
+        }
     }
 
     fun hideKeyboard() {

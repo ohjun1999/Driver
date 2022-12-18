@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
 //        auth = Firebase.auth
         val name = intent.getStringExtra("name")
         val uid = intent.getStringExtra("uid")
+        val type = intent.getStringExtra("type")
         // 하단 탭이 눌렸을 때 화면을 전환하기 위해선 이벤트 처리하기 위해 BottomNavigationView 객체 생성
         var bnvMain = findViewById<BottomNavigationView>(R.id.bnv_main)
 
@@ -75,6 +76,7 @@ class MainActivity : AppCompatActivity() {
                         val bundle = Bundle()
                         bundle.putString("name", name)
                         bundle.putString("uid", uid)
+                        bundle.putString("type", type)
                         binding.constraintLayout2.visibility = View.VISIBLE
                         val extraFragment = ExtraFragment()
                         extraFragment.arguments = bundle

@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/post_bottom"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/post_bottom">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/postItem"
@@ -14,22 +14,38 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/postTitle"
+
+        <LinearLayout
+            android:id="@+id/linearImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textColor="@color/black"
-            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/postName"
             app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/nonImg"
+                android:layout_marginEnd="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_non_img" />
+
+            <TextView
+                android:id="@+id/postTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/countComment"
@@ -45,8 +61,8 @@
             android:id="@+id/countView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
             android:layout_marginStart="5dp"
+            android:text=""
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/countComment"
             app:layout_constraintStart_toEndOf="@+id/countComment"
@@ -54,12 +70,12 @@
 
         <TextView
             android:id="@+id/postName"
-            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="최원빈"
-            android:textSize="15sp"
             android:textColor="@color/nameBlue"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/postTitle"
             app:layout_constraintTop_toBottomOf="@+id/postTitle" />

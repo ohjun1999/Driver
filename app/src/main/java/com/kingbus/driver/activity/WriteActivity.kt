@@ -143,119 +143,147 @@ class WriteActivity : AppCompatActivity() {
 
 
         binding.endBtn.setOnClickListener {
+            if (binding.editTextTitle.text.trim().isEmpty() || binding.editTextContent.text.trim()
+                    .isEmpty()
+            ) {
+                Toast.makeText(this, "입력되지 않은 정보가 있습니다.", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
 
-            var jobDataClass = JobDataClass()
-            jobDataClass.company = binding.editTextCompany.text.toString()
-            jobDataClass.companyNum = binding.editTextCompanyNum.text.toString()
-            jobDataClass.pubDate = nowDate.toString()
-            jobDataClass.startOld = binding.startOld.selectedItem.toString()
-            jobDataClass.endOld = binding.endOld.selectedItem.toString()
-            jobDataClass.city = binding.editTextCity.text.toString()
-            jobDataClass.endDate =
-                binding.year.selectedItem.toString() + "." + binding.month.selectedItem.toString() + "." + binding.date.selectedItem.toString()
-            jobDataClass.context = binding.editTextContent2.text.toString()
-            jobDataClass.userUid = uid.toString()
-            var postDataClass = PostDataClass()
-            postDataClass.uid = uid.toString()
-            postDataClass.title = binding.editTextTitle.text.toString()
-            postDataClass.context = binding.editTextContent.text.toString()
-            postDataClass.pubDate = nowDate.toString()
-            postDataClass.comment = 0
-            postDataClass.name = name.toString()
-            postDataClass.view = 1
-            postDataClass.pubDate = nowDate.toString()
-            funImageUpload(viewProfile!!)
-            when (binding.postType.selectedItem.toString()) {
-                "[ 자유게시판 ]" -> {
+                var jobDataClass = JobDataClass()
+                jobDataClass.company = binding.editTextCompany.text.toString()
+                jobDataClass.companyNum = binding.editTextCompanyNum.text.toString()
+                jobDataClass.pubDate = nowDate.toString()
+                jobDataClass.startOld = binding.startOld.selectedItem.toString()
+                jobDataClass.endOld = binding.endOld.selectedItem.toString()
+                jobDataClass.city = binding.editTextCity.text.toString()
+                jobDataClass.endDate =
+                    binding.year.selectedItem.toString() + "." + binding.month.selectedItem.toString() + "." + binding.date.selectedItem.toString()
+                jobDataClass.context = binding.editTextContent2.text.toString()
+                jobDataClass.userUid = uid.toString()
+                var postDataClass = PostDataClass()
+                postDataClass.uid = uid.toString()
+                postDataClass.title = binding.editTextTitle.text.toString()
+                postDataClass.context = binding.editTextContent.text.toString()
+                postDataClass.pubDate = nowDate.toString()
+                postDataClass.comment = 0
+                postDataClass.name = name.toString()
+                postDataClass.view = 1
+                postDataClass.pubDate = nowDate.toString()
+      /*          funImageUpload(viewProfile!!)*/
+                when (binding.postType.selectedItem.toString()) {
+                    "[ 자유게시판 ]" -> {
 
-                    postDataClass.type = "자유"
-                    db.collection("User").document(uid.toString())
-                        .update("writeCount", FieldValue.increment(1))
-                    db.collection("Post")
-                        .add(postDataClass)
-                        .addOnSuccessListener { documentReference ->
+                        postDataClass.type = "자유"
+                        db.collection("User").document(uid.toString())
+                            .update("writeCount", FieldValue.increment(1))
+                        db.collection("Post")
+                            .add(postDataClass)
+                            .addOnSuccessListener { documentReference ->
 
-                            val doId = documentReference.id
-                            db.collection("Post")
-                                .document(doId).update("postUid", doId)
-                        }
-                        .addOnFailureListener { e ->
+                                val doId = documentReference.id
+                                db.collection("Post")
+                                    .document(doId).update("postUid", doId)
+                            }
+                            .addOnFailureListener { e ->
 
-                        }
-                    hideKeyboard()
-                    Toast.makeText(this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show()
+                            }
+                        hideKeyboard()
+                        Toast.makeText(this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show()
 
-                    finish()
-                }
-                "[ 여행게시판 ]" -> {
+                        finish()
+                    }
+                    "[ 여행게시판 ]" -> {
 
-                    postDataClass.type = "여행"
-                    db.collection("User").document(uid.toString())
-                        .update("writeCount", FieldValue.increment(1))
-                    db.collection("Post")
-                        .add(postDataClass)
-                        .addOnSuccessListener { documentReference ->
+                        postDataClass.type = "여행"
+                        db.collection("User").document(uid.toString())
+                            .update("writeCount", FieldValue.increment(1))
+                        db.collection("Post")
+                            .add(postDataClass)
+                            .addOnSuccessListener { documentReference ->
 
-                            val doId = documentReference.id
-                            db.collection("Post")
-                                .document(doId).update("postUid", doId)
-                        }
-                        .addOnFailureListener { e ->
+                                val doId = documentReference.id
+                                db.collection("Post")
+                                    .document(doId).update("postUid", doId)
+                            }
+                            .addOnFailureListener { e ->
 
-                        }
-                    hideKeyboard()
-                    Toast.makeText(this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show()
+                            }
+                        hideKeyboard()
+                        Toast.makeText(this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show()
 
-                    finish()
-                }
-                "[ 공차배차게시판 ]" -> {
+                        finish()
+                    }
+                    "[ 중고차게시판 ]" -> {
 
 
-                    postDataClass.type = "공차배차"
-                    db.collection("User").document(uid.toString())
-                        .update("writeCount", FieldValue.increment(1))
-                    db.collection("Post")
-                        .add(postDataClass)
-                        .addOnSuccessListener { documentReference ->
+                        postDataClass.type = "중고차"
+                        db.collection("User").document(uid.toString())
+                            .update("writeCount", FieldValue.increment(1))
+                        db.collection("Post")
+                            .add(postDataClass)
+                            .addOnSuccessListener { documentReference ->
 
-                            val doId = documentReference.id
-                            db.collection("Post")
-                                .document(doId).update("postUid", doId)
-                        }
-                        .addOnFailureListener { e ->
+                                val doId = documentReference.id
+                                db.collection("Post")
+                                    .document(doId).update("postUid", doId)
+                            }
+                            .addOnFailureListener { e ->
 
-                        }
-                    hideKeyboard()
-                    Toast.makeText(this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show()
+                            }
+                        hideKeyboard()
+                        Toast.makeText(this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show()
 
-                    finish()
-                }
-                "[ 구인구직게시판 ]" -> {
+                        finish()
+                    }
+                    "[ 공차배차게시판 ]" -> {
+
+
+                        postDataClass.type = "공차배차"
+                        db.collection("User").document(uid.toString())
+                            .update("writeCount", FieldValue.increment(1))
+                        db.collection("Post")
+                            .add(postDataClass)
+                            .addOnSuccessListener { documentReference ->
+
+                                val doId = documentReference.id
+                                db.collection("Post")
+                                    .document(doId).update("postUid", doId)
+                            }
+                            .addOnFailureListener { e ->
+
+                            }
+                        hideKeyboard()
+                        Toast.makeText(this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show()
+
+                        finish()
+                    }
+                    "[ 구인구직게시판 ]" -> {
 //                    db.collection("User").document(uid.toString())
 //                        .update("writeCount", FieldValue.increment(1))
-                    db.collection("Job")
-                        .add(jobDataClass)
-                        .addOnSuccessListener { documentReference ->
+                        db.collection("Job")
+                            .add(jobDataClass)
+                            .addOnSuccessListener { documentReference ->
 
-                            val doId = documentReference.id
-                            db.collection("Job")
-                                .document(doId).update("uid", doId)
-                        }
-                        .addOnFailureListener { e ->
+                                val doId = documentReference.id
+                                db.collection("Job")
+                                    .document(doId).update("uid", doId)
+                            }
+                            .addOnFailureListener { e ->
 
-                        }
-                    hideKeyboard()
-                    Toast.makeText(this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show()
+                            }
+                        hideKeyboard()
+                        Toast.makeText(this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show()
 
-                    finish()
+                        finish()
 
+                    }
                 }
+
+
             }
 
-
         }
-
-
     }
 
     private fun funImageUpload(view: View) {
@@ -296,7 +324,7 @@ class WriteActivity : AppCompatActivity() {
                         "https://firebasestorage.googleapis.com/v0/b/kingbus-driver.appspot.com/o/image%2F$imgFileName?alt=media"
 
                     db.collection("Post")
-                        .document("PBcrQrDT50rnqBxmZ2F9").update("imgLink", FieldValue.arrayUnion(imageUrl))
+                        .document().update("imgLink", FieldValue.arrayUnion(imageUrl))
                     Log.d("test", imageUrl)
 
                     val imageUri = data.clipData!!.getItemAt(i).uri

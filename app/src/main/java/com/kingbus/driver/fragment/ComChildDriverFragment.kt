@@ -38,9 +38,9 @@ class ComChildDriverFragment : Fragment() {
         auth = Firebase.auth
         driverRecyclerView = binding.driverRecyclerView
         var postList = arrayListOf<PostDataClass>()
-        db.collection("Post").whereEqualTo("type", "공차배차").orderBy("pubDate", Query.Direction.DESCENDING).addSnapshotListener { documents, _ ->
+        db.collection("Post").whereEqualTo("type", "공차배차").orderBy("pubDate",Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
             postList.clear()
-            for (document in documents!!) {
+            for (document in documents) {
                 Log.d(document.id, document.data.toString())
                 var item = document.toObject(PostDataClass::class.java)
                 postList.add(item)
@@ -51,7 +51,24 @@ class ComChildDriverFragment : Fragment() {
             driverRecyclerView.layoutManager =
                 LinearLayoutManager(MainActivity(), RecyclerView.VERTICAL, false)
         }
+        binding.refresh.setOnRefreshListener {
+            binding.refresh.isRefreshing=false
+            db.collection("Post").whereEqualTo("type", "공차배차").orderBy("pubDate",Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
+                postList.clear()
+                for (document in documents) {
+                    Log.d(document.id, document.data.toString())
+                    var item = document.toObject(PostDataClass::class.java)
+                    postList.add(item)
+                }
+                val postAdapter =
+                    PostAdapter(MainActivity(), postList)
+                driverRecyclerView.adapter = postAdapter
+                driverRecyclerView.layoutManager =
+                    LinearLayoutManager(MainActivity(), RecyclerView.VERTICAL, false)
 
+
+            }
+        }
         return root
     }
 

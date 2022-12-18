@@ -38,7 +38,7 @@ class ExtraFragment : Fragment() {
         auth = Firebase.auth
         binding.myName.text = arguments?.getString("name")
         val myUid = arguments?.getString("uid")
-
+        val type = arguments?.getString("type")
 
         db.collection("User").whereEqualTo("uid", myUid).addSnapshotListener { documents, _ ->
             for (document in documents!!) {
@@ -71,7 +71,9 @@ class ExtraFragment : Fragment() {
         }
 
 
-        binding.goMyWrite.setOnClickListener {
+
+
+       binding.goMyWrite.setOnClickListener {
             val intent = Intent(activity, MyWriteActivity::class.java)
             intent.putExtra("uid", myUid)
             intent.putExtra("writeCount", binding.writeCount.text.toString())
@@ -86,12 +88,13 @@ class ExtraFragment : Fragment() {
         binding.goMyProfile.setOnClickListener {
             val intent = Intent(activity, MyInfoChangeActivity::class.java)
             intent.putExtra("uid", myUid)
+            intent.putExtra("type", type)
             startActivity(intent)
         }
-//        binding.goMyCar.setOnClickListener {
-//            val intent = Intent(activity, MyWriteActivity::class.java)
-//            startActivity(intent)
-//        }
+        binding.goMyCar.setOnClickListener {
+            val intent = Intent(activity, MyCarInfoActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.goAlarm.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

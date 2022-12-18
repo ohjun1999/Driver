@@ -43,6 +43,7 @@
         <activity android:name=".activity.MyWriteActivity"/>
         <activity android:name=".activity.MyCarInfoActivity"/>
         <activity android:name=".activity.JobDetailActivity"/>
+        <activity android:name=".activity.NaviDetailActivity"/>
     </application>
 
 </manifest>

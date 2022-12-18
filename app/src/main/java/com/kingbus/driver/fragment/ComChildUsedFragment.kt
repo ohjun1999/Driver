@@ -16,30 +16,33 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.kingbus.driver.activity.MainActivity
 import com.kingbus.driver.adapter.PostAdapter
-import com.kingbus.driver.databinding.FragmentTravelBinding
+import com.kingbus.driver.databinding.FragmentFreeBinding
+import com.kingbus.driver.databinding.FragmentUserdCarBinding
 import com.kingbus.driver.dataclass.PostDataClass
+import kotlinx.coroutines.Job
 
-class ComChildTravelFragment : Fragment() {
+class ComChildUsedFragment : Fragment() {
     var firestore: FirebaseFirestore? = null
-    private var _binding: FragmentTravelBinding? = null
+    private var _binding: FragmentUserdCarBinding? = null
     private val binding get() = _binding!!
     lateinit var db: FirebaseFirestore
     lateinit var auth: FirebaseAuth
-    lateinit var travelRecyclerView: RecyclerView
+    lateinit var usedCarRecyclerView: RecyclerView
+    lateinit var job: Job
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentTravelBinding.inflate(inflater, container, false)
+        _binding = FragmentUserdCarBinding.inflate(inflater, container, false)
         val root: View = binding.root
         db = Firebase.firestore
         auth = Firebase.auth
 
-        travelRecyclerView = binding.travelRecyclerView
+        usedCarRecyclerView = binding.usedCarRecyclerView
         var postList = arrayListOf<PostDataClass>()
 
-        db.collection("Post").whereEqualTo("type","여행").orderBy("pubDate",Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
+        db.collection("Post").whereEqualTo("type", "중고차").orderBy("pubDate", Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
             postList.clear()
             for (document in documents) {
                 Log.d(document.id, document.data.toString())
@@ -48,16 +51,15 @@ class ComChildTravelFragment : Fragment() {
             }
             val postAdapter =
                 PostAdapter(MainActivity(), postList)
-            travelRecyclerView.adapter = postAdapter
-            travelRecyclerView.layoutManager =
+            usedCarRecyclerView.adapter = postAdapter
+            usedCarRecyclerView.layoutManager =
                 LinearLayoutManager(MainActivity(), RecyclerView.VERTICAL, false)
 
 
         }
-
         binding.refresh.setOnRefreshListener {
             binding.refresh.isRefreshing=false
-            db.collection("Post").whereEqualTo("type", "여행").orderBy("pubDate",Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
+            db.collection("Post").whereEqualTo("type", "중고차").orderBy("pubDate", Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
                 postList.clear()
                 for (document in documents) {
                     Log.d(document.id, document.data.toString())
@@ -66,13 +68,14 @@ class ComChildTravelFragment : Fragment() {
                 }
                 val postAdapter =
                     PostAdapter(MainActivity(), postList)
-                travelRecyclerView.adapter = postAdapter
-                travelRecyclerView.layoutManager =
+                usedCarRecyclerView.adapter = postAdapter
+                usedCarRecyclerView.layoutManager =
                     LinearLayoutManager(MainActivity(), RecyclerView.VERTICAL, false)
 
 
             }
         }
+
         return root
     }
 

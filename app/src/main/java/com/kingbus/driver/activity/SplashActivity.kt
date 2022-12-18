@@ -60,6 +60,7 @@ class SplashActivity : AppCompatActivity() {
                                 val name = document.getString("name").toString()
                                 val uid = document.getString("uid").toString()
                                 val submit = document.get("submit").toString()
+                                val type = document.get("type").toString()
 //                        val isValidPassword = BCrypt.checkpw(inputPassword, user.password.toString())
 //
 
@@ -69,6 +70,7 @@ class SplashActivity : AppCompatActivity() {
                                 MySharedPreferences.setName(this, name)
                                 val intent = Intent(this, MainActivity::class.java)
                                 intent.putExtra("name", name)
+                                intent.putExtra("type", type)
                                 intent.putExtra("uid", uid)
                                 startActivity(intent)
 

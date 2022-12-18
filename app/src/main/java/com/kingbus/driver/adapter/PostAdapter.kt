@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
@@ -52,19 +53,23 @@ class PostAdapter(
         val dateFormat = SimpleDateFormat("yyyy-MM-dd kk:mm", Locale("ko", "KR"))
         val nowDate = dateFormat.format(date)
 
-        if (post.pubDate.toString().substring(0,10) == nowDate.toString().substring(0,10)){
-            holder.postPubDate.text = post.pubDate.toString().substring(11,16)
-        }else{
-            holder.postPubDate.text =   post.pubDate.toString().substring(0,10)
+        if (post.pubDate.toString().substring(0, 10) == nowDate.toString().substring(0, 10)) {
+            holder.postPubDate.text = post.pubDate.toString().substring(11, 16)
+        } else {
+            holder.postPubDate.text = post.pubDate.toString().substring(0, 10)
+        }
+
+        if (post.imgLink?.size == 0) {
+            holder.nonImg.visibility = View.GONE
         }
 
         holder.postName.text = post.name
         holder.postTitle.text = post.title
 //        holder.postPubDate.text = post.pubDate
 
-        if (post.commentList?.size == 0){
-            holder.countComment.text ="댓글 " + "0"
-        }else{
+        if (post.commentList?.size == 0) {
+            holder.countComment.text = "댓글 " + "0"
+        } else {
             holder.countComment.text = "댓글 " + post.commentList?.size.toString()
         }
         holder.countView.text = "조회 " + post.view.toString()
@@ -124,7 +129,7 @@ class PostAdapter(
         val countView: TextView = itemView.findViewById(R.id.countView)
         val postPubDate: TextView = itemView.findViewById(R.id.postPubDate)
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
-
+        val nonImg: ImageView = itemView.findViewById(R.id.nonImg)
 
     }
 }

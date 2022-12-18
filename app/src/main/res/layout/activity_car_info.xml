@@ -56,104 +56,260 @@
             app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/topLinear"
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/backWeakGray"
-        android:orientation="vertical"
-        android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@id/saveBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/constraintLayout">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="이름"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-
-        <EditText
-            android:id="@+id/nameInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/login_back"
-            android:hint="이름"
-            android:padding="13dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="업체명"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-
-        <EditText
-            android:id="@+id/companyInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/login_back"
-            android:hint="업체명"
-            android:padding="13dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="지역"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
         <LinearLayout
+            android:id="@+id/topLinear"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:background="@color/backWeakGray"
+            android:orientation="vertical"
+            android:padding="16dp"
+            app:layout_constraintBottom_toTopOf="@id/saveBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="차량종류"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
 
             <Spinner
-                android:id="@+id/province"
-                android:layout_width="0dp"
+                android:id="@+id/carTypeInfo"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:layout_weight="1"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/spinner_back"
-                android:entries="@array/province"
+                android:entries="@array/userType"
                 android:padding="13dp" />
 
-            <FrameLayout
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_weight="1">
+                android:layout_marginTop="14dp"
+                android:text="차량번호"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+
+            <EditText
+                android:id="@+id/carNumInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/login_back"
+                android:hint="이름"
+                android:padding="13dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="차량종류"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+
+            <Spinner
+                android:id="@+id/carYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/spinner_back"
+                android:entries="@array/carYear"
+                android:padding="13dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="보험 만료일"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+
+            <LinearLayout
+                android:id="@+id/birth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
                 <Spinner
-                    android:id="@+id/seoul"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:id="@+id/year"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
                     android:background="@drawable/spinner_back"
-                    android:entries="@array/seoul"
+                    android:entries="@array/oldYear"
                     android:padding="13dp" />
 
                 <Spinner
-                    android:id="@+id/gyeonggi"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:id="@+id/month"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    android:layout_weight="1"
                     android:background="@drawable/spinner_back"
-                    android:entries="@array/city"
-                    android:padding="13dp"
-                    android:visibility="gone" />
-            </FrameLayout>
+                    android:entries="@array/month"
+                    android:padding="13dp" />
 
+                <Spinner
+                    android:id="@+id/date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/spinner_back"
+                    android:entries="@array/date"
+                    android:padding="13dp" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="인증"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/busCard"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="9dp"
+                        android:src="@drawable/ic_get_img" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="9dp"
+                        android:text="버스 자격증"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/carCard"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="9dp"
+                        android:src="@drawable/ic_get_img" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="9dp"
+                        android:text="차량등록증"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/insurance"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="9dp"
+                        android:src="@drawable/ic_get_img" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="9dp"
+                        android:text="보험증서"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/business"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="9dp"
+                        android:src="@drawable/ic_get_img" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="9dp"
+                        android:text="사업자등록"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="9dp"
+                    android:src="@drawable/ic_get_img" />
+            </LinearLayout>
 
         </LinearLayout>
+    </ScrollView>
 
-
-    </LinearLayout>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/saveBtn"
         android:layout_width="match_parent"
