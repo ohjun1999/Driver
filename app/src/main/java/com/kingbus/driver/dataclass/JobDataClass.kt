@@ -14,4 +14,6 @@ data class JobDataClass(
     var possible: String? = null,
     var postUid: String? = null,
     var userUid: String? = null,
+    var userProvince: String? = null,
+    var userCity: String? = null,
 )

@@ -44,7 +44,7 @@ class ExtraFragment : Fragment() {
             for (document in documents!!) {
                 binding.myBelong.text =
                     document.getString("province") + " " + document.getString("city")
-                val imageUrl = document.getString("imageUri").toString()
+                val imageUrl = document.getString("profileImg").toString()
 
                 if (imageUrl == "null"){
 

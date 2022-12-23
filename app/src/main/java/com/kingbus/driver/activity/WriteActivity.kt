@@ -37,6 +37,7 @@ class WriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWriteBinding
 
     var list = ArrayList<Uri>()
+    var imageList = ArrayList<String>()
     val adapter = MultiImageAdapter(list, this)
     lateinit var db: FirebaseFirestore
     lateinit var auth: FirebaseAuth
@@ -60,6 +61,8 @@ class WriteActivity : AppCompatActivity() {
         val nowDate = dateFormat.format(date)
         val name = intent.getStringExtra("name")
         val uid = intent.getStringExtra("uid")
+        val province = intent.getStringExtra("province")
+        val city = intent.getStringExtra("city")
         binding.backKey.setOnClickListener {
             finish()
         }
@@ -105,6 +108,14 @@ class WriteActivity : AppCompatActivity() {
                     //"[ 구인구직게시판 ]"
                     3 -> {
                         hideKeyboard()
+                        if (binding.extra.visibility == View.GONE) {
+                            binding.job.visibility = View.GONE
+                            binding.extra.visibility = View.VISIBLE
+                        }
+                    }
+
+                    4 -> {
+                        hideKeyboard()
                         binding.extra.visibility = View.GONE
                         binding.job.visibility = View.VISIBLE
                     }
@@ -124,14 +135,14 @@ class WriteActivity : AppCompatActivity() {
             startActivityForResult(intent, 200)
 
 
-//            ActivityCompat.requestPermissions(
-//                this,
-//                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-//                1
-//            )
-//            var photoPickerIntent = Intent(Intent.ACTION_PICK)
-//            photoPickerIntent.type = "image/*"
-//            startActivityForResult(photoPickerIntent, pickImageFromAlbum)
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                1
+            )
+            var photoPickerIntent = Intent(Intent.ACTION_PICK)
+            photoPickerIntent.type = "image/*"
+            startActivityForResult(photoPickerIntent, pickImageFromAlbum)
 
         }
 
@@ -143,6 +154,54 @@ class WriteActivity : AppCompatActivity() {
 
 
         binding.endBtn.setOnClickListener {
+            when (binding.postType.selectedItem.toString()) {
+                "[ 구인구직게시판 ]" -> {
+                    if (binding.editTextCompany.text.trim()
+                            .isEmpty() || binding.editTextCompanyNum.text.trim()
+                            .isEmpty() || binding.editTextCity.text.trim()
+                            .isEmpty() || binding.editTextContent2.text.trim()
+                            .isEmpty()
+                    ) {
+                        Toast.makeText(this, "입력되지 않은 정보가 있습니다.", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+                        var jobDataClass = JobDataClass()
+                        jobDataClass.company = binding.editTextCompany.text.toString()
+                        jobDataClass.companyNum = binding.editTextCompanyNum.text.toString()
+                        jobDataClass.pubDate = nowDate.toString()
+                        jobDataClass.startOld = binding.startOld.selectedItem.toString()
+                        jobDataClass.endOld = binding.endOld.selectedItem.toString()
+                        jobDataClass.city = binding.editTextCity.text.toString()
+                        jobDataClass.endDate =
+                            binding.year.selectedItem.toString() + "." + binding.month.selectedItem.toString() + "." + binding.date.selectedItem.toString()
+                        jobDataClass.context = binding.editTextContent2.text.toString()
+                        jobDataClass.userUid = uid.toString()
+                        jobDataClass.userProvince = province.toString()
+                        jobDataClass.userCity = city.toString()
+                        db.collection("Job")
+                            .add(jobDataClass)
+                            .addOnSuccessListener { documentReference ->
+
+                                val doId = documentReference.id
+                                db.collection("Job")
+                                    .document(doId).update("uid", doId)
+
+                            }
+                            .addOnFailureListener { e ->
+
+                            }
+                        hideKeyboard()
+                        Toast.makeText(this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show()
+
+                        finish()
+                    }
+                }
+
+                else -> {
+
+                }
+            }
+
             if (binding.editTextTitle.text.trim().isEmpty() || binding.editTextContent.text.trim()
                     .isEmpty()
             ) {
@@ -150,17 +209,7 @@ class WriteActivity : AppCompatActivity() {
                     .show()
             } else {
 
-                var jobDataClass = JobDataClass()
-                jobDataClass.company = binding.editTextCompany.text.toString()
-                jobDataClass.companyNum = binding.editTextCompanyNum.text.toString()
-                jobDataClass.pubDate = nowDate.toString()
-                jobDataClass.startOld = binding.startOld.selectedItem.toString()
-                jobDataClass.endOld = binding.endOld.selectedItem.toString()
-                jobDataClass.city = binding.editTextCity.text.toString()
-                jobDataClass.endDate =
-                    binding.year.selectedItem.toString() + "." + binding.month.selectedItem.toString() + "." + binding.date.selectedItem.toString()
-                jobDataClass.context = binding.editTextContent2.text.toString()
-                jobDataClass.userUid = uid.toString()
+
                 var postDataClass = PostDataClass()
                 postDataClass.uid = uid.toString()
                 postDataClass.title = binding.editTextTitle.text.toString()
@@ -170,7 +219,11 @@ class WriteActivity : AppCompatActivity() {
                 postDataClass.name = name.toString()
                 postDataClass.view = 1
                 postDataClass.pubDate = nowDate.toString()
-      /*          funImageUpload(viewProfile!!)*/
+                for (i in 0 until list.size) {
+                    funImageUpload(list[i])
+                }
+
+
                 when (binding.postType.selectedItem.toString()) {
                     "[ 자유게시판 ]" -> {
 
@@ -184,6 +237,10 @@ class WriteActivity : AppCompatActivity() {
                                 val doId = documentReference.id
                                 db.collection("Post")
                                     .document(doId).update("postUid", doId)
+                                for (i in imageList) {
+                                    db.collection("Post")
+                                        .document(doId).update("imgLink", FieldValue.arrayUnion(i))
+                                }
                             }
                             .addOnFailureListener { e ->
 
@@ -259,23 +316,7 @@ class WriteActivity : AppCompatActivity() {
                         finish()
                     }
                     "[ 구인구직게시판 ]" -> {
-//                    db.collection("User").document(uid.toString())
-//                        .update("writeCount", FieldValue.increment(1))
-                        db.collection("Job")
-                            .add(jobDataClass)
-                            .addOnSuccessListener { documentReference ->
 
-                                val doId = documentReference.id
-                                db.collection("Job")
-                                    .document(doId).update("uid", doId)
-                            }
-                            .addOnFailureListener { e ->
-
-                            }
-                        hideKeyboard()
-                        Toast.makeText(this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show()
-
-                        finish()
 
                     }
                 }
@@ -286,7 +327,7 @@ class WriteActivity : AppCompatActivity() {
         }
     }
 
-    private fun funImageUpload(view: View) {
+    private fun funImageUpload(view: Uri) {
         var timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         var imgFileName = "IMAGE_" + timeStamp + "_.png"
         var storageRef = fbStorage?.reference?.child("image")?.child(imgFileName)
@@ -295,7 +336,7 @@ class WriteActivity : AppCompatActivity() {
             "https://firebasestorage.googleapis.com/v0/b/kingbus-driver.appspot.com/o/image%2F$imgFileName?alt=media"
         MySharedPreferences.setImage(this, imageUrl)
 
-        storageRef?.putFile(uriPhoto!!)?.addOnSuccessListener {
+        storageRef?.putFile(view)?.addOnSuccessListener {
 
         }
 
@@ -323,13 +364,11 @@ class WriteActivity : AppCompatActivity() {
                     val imageUrl =
                         "https://firebasestorage.googleapis.com/v0/b/kingbus-driver.appspot.com/o/image%2F$imgFileName?alt=media"
 
-                    db.collection("Post")
-                        .document().update("imgLink", FieldValue.arrayUnion(imageUrl))
-                    Log.d("test", imageUrl)
+
 
                     val imageUri = data.clipData!!.getItemAt(i).uri
                     list.add(imageUri)
-
+                    imageList.add(imageUrl)
                     storageRef?.putFile(imageUri)?.addOnSuccessListener {
 
                     }
@@ -339,8 +378,13 @@ class WriteActivity : AppCompatActivity() {
             } else { //단일선택
                 data?.data?.let { uri ->
                     val imageUri: Uri? = data?.data
+                    var timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+                    var imgFileName = "IMAGE_" + timeStamp + "_" + "_.png"
+                    val imageUrl =
+                        "https://firebasestorage.googleapis.com/v0/b/kingbus-driver.appspot.com/o/image%2F$imgFileName?alt=media"
                     if (imageUri != null) {
                         list.add(imageUri)
+                        imageList.add(imageUrl)
                     }
 
                 }
@@ -351,14 +395,14 @@ class WriteActivity : AppCompatActivity() {
 
         }
 
-//        if (requestCode == pickImageFromAlbum) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                uriPhoto = data?.data
-//                binding.imgBtn.setImageURI(uriPhoto)
-//
-//
-//            }
-//        }
+        if (requestCode == pickImageFromAlbum) {
+            if (resultCode == Activity.RESULT_OK) {
+                uriPhoto = data?.data
+                binding.imgBtn.setImageURI(uriPhoto)
+
+
+            }
+        }
     }
 
     fun hideKeyboard() {

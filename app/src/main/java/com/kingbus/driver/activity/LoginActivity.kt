@@ -65,6 +65,8 @@ class LoginActivity : AppCompatActivity() {
                                     val name = document.getString("name").toString()
                                     val uid = document.getString("uid").toString()
                                     val submit = document.get("submit").toString()
+                                    val province = document.get("province").toString()
+                                    val city = document.get("city").toString()
                                     val type = document.get("type").toString()
 //                        val isValidPassword = BCrypt.checkpw(inputPassword, user.password.toString())
 //
@@ -81,6 +83,8 @@ class LoginActivity : AppCompatActivity() {
                                             intent.putExtra("name", name)
                                             intent.putExtra("uid", uid)
                                             intent.putExtra("type", type)
+                                            intent.putExtra("province", province)
+                                            intent.putExtra("city", city)
                                             startActivity(intent)
                                             finish()
                                         } else {
@@ -88,6 +92,8 @@ class LoginActivity : AppCompatActivity() {
                                             intent.putExtra("name", name)
                                             intent.putExtra("uid", uid)
                                             intent.putExtra("type", type)
+                                            intent.putExtra("province", province)
+                                            intent.putExtra("city", city)
                                             startActivity(intent)
                                             finish()
                                         }
@@ -110,7 +116,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.accountBtn.setOnClickListener {
-            val intent = Intent(this, AccountActivity::class.java)
+            val intent = Intent(this, AuthorityAgreeActivity::class.java)
 
             startActivity(intent)
         }

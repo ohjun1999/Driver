@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -41,6 +42,9 @@ class MainActivity : AppCompatActivity() {
         val name = intent.getStringExtra("name")
         val uid = intent.getStringExtra("uid")
         val type = intent.getStringExtra("type")
+        val province = intent.getStringExtra("province")
+        val city = intent.getStringExtra("city")
+
         // 하단 탭이 눌렸을 때 화면을 전환하기 위해선 이벤트 처리하기 위해 BottomNavigationView 객체 생성
         var bnvMain = findViewById<BottomNavigationView>(R.id.bnv_main)
 
@@ -93,6 +97,10 @@ class MainActivity : AppCompatActivity() {
             var intent = Intent(this, WriteActivity::class.java)
             intent.putExtra("name", name)
             intent.putExtra("uid", uid)
+            intent.putExtra("province", province)
+            intent.putExtra("city", city)
+            Log.d("test", province.toString())
+            Log.d("test", city.toString())
             startActivity(intent)
         }
 

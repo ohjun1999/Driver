@@ -23,10 +23,11 @@
                 android:padding="16dp">
 
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imageView6"
                     android:layout_width="84dp"
                     android:layout_height="84dp"
+                    app:civ_border_overlay="true"
                     android:layout_marginStart="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

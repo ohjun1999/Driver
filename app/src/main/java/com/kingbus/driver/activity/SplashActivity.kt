@@ -61,6 +61,8 @@ class SplashActivity : AppCompatActivity() {
                                 val uid = document.getString("uid").toString()
                                 val submit = document.get("submit").toString()
                                 val type = document.get("type").toString()
+                                val province = document.get("province").toString()
+                                val city = document.get("city").toString()
 //                        val isValidPassword = BCrypt.checkpw(inputPassword, user.password.toString())
 //
 
@@ -72,6 +74,8 @@ class SplashActivity : AppCompatActivity() {
                                 intent.putExtra("name", name)
                                 intent.putExtra("type", type)
                                 intent.putExtra("uid", uid)
+                                intent.putExtra("province", province)
+                                intent.putExtra("city", city)
                                 startActivity(intent)
 
                             }

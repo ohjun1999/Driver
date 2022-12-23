@@ -44,6 +44,30 @@
         <activity android:name=".activity.MyCarInfoActivity"/>
         <activity android:name=".activity.JobDetailActivity"/>
         <activity android:name=".activity.NaviDetailActivity"/>
+        <activity android:name=".activity.AuthorityAgreeActivity"
+            android:theme="@style/Theme.Driver2"/>
+        <activity android:name=".activity.TravelDetailActivity"
+            android:theme="@style/Theme.Driver3"/>
+        <activity
+            android:name=".activity.TermsFirstActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Driver3"/>
+        <activity
+            android:name=".activity.TermsSecondActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Driver3"/>
+        <activity
+            android:name=".activity.TermsThirdActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Driver3"/>
+        <activity
+            android:name=".activity.TermsFourthActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Driver3"/>
+        <activity
+            android:name=".activity.TermsFifthActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Driver3"/>
     </application>
 
 </manifest>

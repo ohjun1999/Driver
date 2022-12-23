@@ -3,25 +3,77 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/auth_check.xml" value="0.3295" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/gender_select_gray.xml" value="0.2435" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/gender_select_red.xml" value="0.13" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/get_account_btn.xml" value="0.227" />
         <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/gray_bottom.xml" value="0.363" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.13" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/ic_check_auth_gray.xml" value="0.3295" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/ic_check_auth_green.xml" value="0.3295" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/ic_end_go_red.xml" value="0.3295" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/ic_locate_navi.xml" value="0.255" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/ic_maintain_state_false.xml" value="0.2045" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/ic_maintain_state_true.xml" value="0.2045" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/item_image.xml" value="0.33" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/login_back.xml" value="0.299" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/login_btn.xml" value="0.227" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/maintain_state_check.xml" value="0.227" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/my_back.xml" value="0.363" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/post_bottom.xml" value="0.197" />
         <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/red_bottom.xml" value="0.363" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/red_btn_back.xml" value="0.13" />
         <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/selector_radio_button.xml" value="0.363" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/selector_radio_button_gender.xml" value="0.13" />
         <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/selector_radio_text.xml" value="0.363" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/spinner_back.xml" value="0.1215" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/spinner_back_gray.xml" value="0.1" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/travel_tag.xml" value="0.2955" />
         <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/drawable/write_back.xml" value="0.3565" />
-        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_post_detail.xml" value="0.3619791666666667" />
-        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_write.xml" value="0.1" />
-        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/fragment_community.xml" value="0.2" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_account.xml" value="0.2" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_authority_agree.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_car_info.xml" value="0.3010752688172043" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_community_detail.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_job_detail.xml" value="0.3074074074074074" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_login.xml" value="0.2236024844720497" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_my_info_change.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_my_submit.xml" value="0.536" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_my_write.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_navi_detail.xml" value="0.1" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_password_change.xml" value="0.22282608695652173" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_post_detail.xml" value="0.264" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_splash.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_terms.xml" value="0.4" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_terms_fifth.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_terms_first.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_terms_fourth.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_terms_second.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_terms_sixth.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_terms_third.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_travel_detail.xml" value="0.3228053878309336" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/activity_write.xml" value="0.264" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/fragment_community.xml" value="0.264" />
         <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/fragment_driver.xml" value="0.3619791666666667" />
-        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/fragment_extra.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/fragment_extra.xml" value="0.264" />
         <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/fragment_free.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/fragment_job.xml" value="0.3619791666666667" />
-        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/fragment_manage.xml" value="0.3619791666666667" />
-        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/fragment_navi.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/fragment_manage.xml" value="0.28742762613730355" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/fragment_navi.xml" value="0.264" />
         <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/fragment_travel.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/fragment_userd_car.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/frgament_job.xml" value="0.3619791666666667" />
-        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/item_post.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/item_comment.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/item_image.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/item_job.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/item_navi.xml" value="0.264" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/item_notice_img.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/item_post.xml" value="0.264" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/item_review.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/item_travel.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/layout/item_travel_image.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/menu/navi_menu.xml" value="0.2" />
+        <entry key="..\:/Users/ohjun/AndroidStudioProjects/Driver/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.338" />
       </map>
     </option>
   </component>

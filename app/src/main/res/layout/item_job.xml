@@ -8,11 +8,14 @@
     android:layout_marginTop="12dp"
     android:padding="10dp">
 
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="64dp"
-        android:layout_height="20dp"
-        android:src="@drawable/ic_login_logo"
+    <TextView
+        android:id="@+id/comName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="킹버스"
+        android:textColor="@color/nameBlue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,8 +35,8 @@
         android:layout_marginTop="20dp"
         android:text="킹버스"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@id/imageView10"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+        app:layout_constraintStart_toStartOf="@id/comName"
+        app:layout_constraintTop_toBottomOf="@+id/comName" />
 
     <TextView
         android:id="@+id/context"
@@ -42,7 +45,7 @@
         android:text="킹버스"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@id/imageView10"
+        app:layout_constraintStart_toStartOf="@id/comName"
         app:layout_constraintTop_toBottomOf="@+id/companyName" />
 
     <View
@@ -60,8 +63,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2022.12.24 까지"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toEndOf="@id/old"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
         android:id="@+id/old"
@@ -69,15 +73,14 @@
         android:layout_height="wrap_content"
         android:text="20~50세"
         android:layout_marginStart="20dp"
-        app:layout_constraintStart_toEndOf="@+id/endDate"
-        app:layout_constraintTop_toTopOf="@+id/endDate" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/city" />
 
     <TextView
         android:id="@+id/city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="수원"
-        android:layout_marginStart="20dp"
-        app:layout_constraintStart_toEndOf="@+id/old"
-        app:layout_constraintTop_toTopOf="@+id/old" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

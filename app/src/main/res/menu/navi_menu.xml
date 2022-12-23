@@ -16,7 +16,7 @@
         android:id="@+id/third"
         android:enabled="true"
         android:icon="@drawable/ic_manage"
-        android:title="사무관리"
+        android:title="여행상품"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/four"
