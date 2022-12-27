@@ -5,7 +5,8 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,45 +30,49 @@
         </activity>
         <activity android:name=".activity.WriteActivity" />
         <activity android:name=".activity.PostDetailActivity" />
-        <activity android:name=".activity.LoginActivity"
+        <activity
+            android:name=".activity.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.Driver2">
 
         </activity>
-        <activity android:name=".activity.AccountActivity"
-            android:theme="@style/Theme.Driver2"/>
-
-        <activity android:name=".activity.MyInfoChangeActivity"/>
-        <activity android:name=".activity.MySubmitActivity"/>
-        <activity android:name=".activity.PasswordChangeActivity"/>
-        <activity android:name=".activity.MyWriteActivity"/>
-        <activity android:name=".activity.MyCarInfoActivity"/>
-        <activity android:name=".activity.JobDetailActivity"/>
-        <activity android:name=".activity.NaviDetailActivity"/>
-        <activity android:name=".activity.AuthorityAgreeActivity"
-            android:theme="@style/Theme.Driver2"/>
-        <activity android:name=".activity.TravelDetailActivity"
-            android:theme="@style/Theme.Driver3"/>
+        <activity
+            android:name=".activity.AccountActivity"
+            android:theme="@style/Theme.Driver2" />
+        <activity android:name=".activity.NoticeDetailActivity" />
+        <activity android:name=".activity.MyInfoChangeActivity" />
+        <activity android:name=".activity.MySubmitActivity" />
+        <activity android:name=".activity.PasswordChangeActivity" />
+        <activity android:name=".activity.MyWriteActivity" />
+        <activity android:name=".activity.MyCarInfoActivity" />
+        <activity android:name=".activity.JobDetailActivity" />
+        <activity android:name=".activity.NaviDetailActivity" />
+        <activity
+            android:name=".activity.AuthorityAgreeActivity"
+            android:theme="@style/Theme.Driver2" />
+        <activity
+            android:name=".activity.TravelDetailActivity"
+            android:theme="@style/Theme.Driver3" />
         <activity
             android:name=".activity.TermsFirstActivity"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.Driver3"/>
+            android:theme="@style/Theme.Driver3" />
         <activity
             android:name=".activity.TermsSecondActivity"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.Driver3"/>
+            android:theme="@style/Theme.Driver3" />
         <activity
             android:name=".activity.TermsThirdActivity"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.Driver3"/>
+            android:theme="@style/Theme.Driver3" />
         <activity
             android:name=".activity.TermsFourthActivity"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.Driver3"/>
+            android:theme="@style/Theme.Driver3" />
         <activity
             android:name=".activity.TermsFifthActivity"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.Driver3"/>
+            android:theme="@style/Theme.Driver3" />
     </application>
 
 </manifest>

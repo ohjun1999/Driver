@@ -1,5 +1,6 @@
 package com.kingbus.driver.activity
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -7,8 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +27,7 @@ import com.kingbus.driver.databinding.ActivityPostDetailBinding
 import com.kingbus.driver.dataclass.CommentDataClass
 import com.kingbus.driver.dataclass.PostDataClass
 import com.kingbus.driver.dataclass.UserDataClass
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -63,32 +64,88 @@ class PostDetailActivity : AppCompatActivity() {
         val img = intent.getStringExtra("img")
         val type = intent.getStringExtra("type")
         val postUid = intent.getStringExtra("postUid")
-        binding.commentCount.text = comment
-        binding.commentCount2.text = comment
+        val builder = AlertDialog.Builder(this)
+        val userUid = MySharedPreferences.getUserUid(this)
+        val userName = MySharedPreferences.getName(this)
+        binding.type.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (binding.type.getItemAtPosition(position)) {
+                    "차단하기" -> {
+                        val dialogView = layoutInflater.inflate(R.layout.custom_dialog, null)
+
+                        val dialogTitle = dialogView.findViewById<TextView>(R.id.dialogTitle)
+
+                        dialogTitle.setText("본 게시글을 차단하시겠습니까?")
+                        builder.setView(dialogView)
+                            .setPositiveButton("확인") { dialogInterface, i ->
+                                /* 확인일 때 main의 View의 값에 dialog View에 있는 값을 적용 */
+                                db.collection("User")
+                                    .document(userUid)
+                                    .update("block", FieldValue.arrayUnion(uid))
+                                finish()
+                            }
+                            .setNegativeButton("취소") { dialogInterface, i ->
+                                /* 취소일 때 아무 액션이 없으므로 빈칸 */
+                                binding.type.setSelection(0)
+                            }
+                            .show()
+                    }
+                    "신고하기" -> {
+                        val dialogView = layoutInflater.inflate(R.layout.custom_dialog, null)
+
+                        val dialogTitle = dialogView.findViewById<TextView>(R.id.dialogTitle)
+
+                        dialogTitle.setText("본 게시글을 신고하시겠습니까?")
+                        builder.setView(dialogView)
+                            .setPositiveButton("확인") { dialogInterface, i ->
+                                /* 확인일 때 main의 View의 값에 dialog View에 있는 값을 적용 */
+                                db.collection("Post")
+                                    .document(postUid.toString())
+                                    .update("declaration", FieldValue.arrayUnion(userName))
+                                finish()
+                            }
+                            .setNegativeButton("취소") { dialogInterface, i ->
+                                /* 취소일 때 아무 액션이 없으므로 빈칸 */
+                                binding.type.setSelection(0)
+                            }
+                            .show()
+                    }
+                }
+            }
+        }
         binding.eyesCount.text = view2
         binding.postPubDate.text = pubDate
         binding.postContext.text = context
         binding.postName.text = name
         binding.postTitle.text = title
-        val userUid = MySharedPreferences.getUserUid(this)
-        val userName = MySharedPreferences.getName(this)
+
         commentRecyclerView = binding.commentRecyclerView
         var commentList = arrayListOf<CommentDataClass>()
 
-        if (userUid == uid) {
-            binding.deleteBtn.visibility = View.VISIBLE
-        }
+//        if (userUid == uid) {
+//            binding.deleteBtn.visibility = View.VISIBLE
+//        }
         binding.backKey.setOnClickListener {
             finish()
         }
         albumImg = binding.albumImg
 
         var albumImgList = arrayListOf<String>()
+
+
         db.collection("Post").whereEqualTo("postUid", postUid)
-            .get().addOnSuccessListener { documents ->
+            .addSnapshotListener { documents,_ ->
 
 
-                for (document in documents) {
+                for (document in documents!!) {
                     if (document.get("imgLink") == null) {
                         binding.postImg.visibility = View.VISIBLE
                         binding.albumImg.visibility =View.GONE
@@ -96,6 +153,9 @@ class PostDetailActivity : AppCompatActivity() {
                         albumImgList = document.get("imgLink") as ArrayList<String>
                     }
 
+                    var commentNum = document.get("comment").toString()
+                    binding.commentCount.text = commentNum
+                    binding.commentCount2.text = commentNum
 
                 }
                 val realNoticeAdapter = RealNoticeAdapter(this, albumImgList)
@@ -123,40 +183,40 @@ class PostDetailActivity : AppCompatActivity() {
 
 
             }
-        binding.deleteBtn.setOnClickListener {
-
-            db.collection("Post").whereEqualTo("postUid", postUid)
-                .addSnapshotListener { documents, _ ->
-
-                    for (document in documents!!) {
-                        var commentUid: ArrayList<Any>? = ArrayList()
-                        commentUid = document.get("commentList") as ArrayList<Any>?
-                        if (commentUid!!.size == 0) {
-
-                        } else {
-                            for (i in commentUid) {
-                                db.collection("Comment").document(i.toString()).delete()
-                                    .addOnSuccessListener {
-
-                                    }
-                            }
-
-                        }
-                    }
-
-                }
-
-
-            db.collection("User").document(userUid).update("writeCount", FieldValue.increment(-1))
-//            db.collection("User").document(userUid)
-//                .update("submit", FieldValue.arrayRemove(uid))
-            db.collection("Post").document(postUid.toString()).delete().addOnSuccessListener {
-
-
-            }
-
-            finish()
-        }
+//        binding.deleteBtn.setOnClickListener {
+//
+//            db.collection("Post").whereEqualTo("postUid", postUid)
+//                .addSnapshotListener { documents, _ ->
+//
+//                    for (document in documents!!) {
+//                        var commentUid: ArrayList<Any>? = ArrayList()
+//                        commentUid = document.get("commentList") as ArrayList<Any>?
+//                        if (commentUid!!.size == 0) {
+//
+//                        } else {
+//                            for (i in commentUid) {
+//                                db.collection("Comment").document(i.toString()).delete()
+//                                    .addOnSuccessListener {
+//
+//                                    }
+//                            }
+//
+//                        }
+//                    }
+//
+//                }
+//
+//
+//            db.collection("User").document(userUid).update("writeCount", FieldValue.increment(-1))
+////            db.collection("User").document(userUid)
+////                .update("submit", FieldValue.arrayRemove(uid))
+//            db.collection("Post").document(postUid.toString()).delete().addOnSuccessListener {
+//
+//
+//            }
+//
+//            finish()
+//        }
         binding.btnComment.setOnClickListener {
             if (binding.editTextComment.text.isNullOrBlank()) {
                 Toast.makeText(this, "작성된 댓글이 없습니다.", Toast.LENGTH_SHORT).show()
@@ -180,6 +240,9 @@ class PostDetailActivity : AppCompatActivity() {
                         db.collection("Post")
                             .document(postUid.toString())
                             .update("commentList", FieldValue.arrayUnion(doId))
+                        db.collection("Post")
+                            .document(postUid.toString())
+                            .update("comment", FieldValue.increment(1))
 
                     }
                     .addOnFailureListener { e ->
@@ -235,6 +298,16 @@ class PostDetailActivity : AppCompatActivity() {
 
         }
     }
+
+//    fun KotlinWorldButtonWithDropDownMenu(){
+//        var isDropDownMenuExpanded by remember {mutableStateOf(false)}
+//
+//        Button(
+//            onClick = {isDropDownMenuExpanded = true}
+//        ){
+//            Text(text = " Show Menu")
+//        }
+//    }
 
     fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

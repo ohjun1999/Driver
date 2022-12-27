@@ -2,6 +2,7 @@ package com.kingbus.driver.activity
 
 import android.Manifest
 import android.app.Activity
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -16,6 +17,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
@@ -23,6 +25,8 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -32,6 +36,7 @@ import com.kingbus.driver.dataclass.UserDataClass
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
+
 
 class AccountActivity : AppCompatActivity() {
     // lateinit 사용
@@ -92,19 +97,42 @@ class AccountActivity : AppCompatActivity() {
 
         var checkId = "O"
 
+
         binding.idCheck.setOnClickListener {
-            db.collection("User").whereEqualTo("id", binding.idInfo.text.toString()).get()
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
+            val rootRef = FirebaseFirestore.getInstance()
+            val yourCollRef = rootRef.collection("User")
+            val query: Query = yourCollRef.whereEqualTo("id", binding.idInfo.text.toString())
+            query.get().addOnCompleteListener(OnCompleteListener<QuerySnapshot?> { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result) {
                         if (document.exists()) {
                             checkId = "X"
                             Toast.makeText(this, "사용하고 있는 아이디 입니다.", Toast.LENGTH_SHORT).show()
                         } else {
+                            Log.d(TAG, "Document does not exist!");
                             checkId = "O"
                             Toast.makeText(this, "사용 가능한 아이디 입니다.", Toast.LENGTH_SHORT).show()
                         }
+                        Log.d(TAG, document.id + " => " + document.data)
+
                     }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.exception)
+
                 }
+            })
+//            db.collection("User").whereEqualTo("id", binding.idInfo.text.toString()).get()
+//                .addOnSuccessListener { documents ->
+//
+//
+//                    for (document in documents) {
+//                        if (document.exists()) {
+//
+//                        } else {
+//
+//                        }
+//                    }
+//                }
         }
 
         binding.userType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -138,13 +166,6 @@ class AccountActivity : AppCompatActivity() {
                                 )
                                     .show()
 
-                            } else if (checkId == "X") {
-                                Toast.makeText(
-                                    this@AccountActivity,
-                                    "이미 사용하고 있는 아이디입니다.",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
                             } else if (binding.passwordInfo.text.toString() != binding.passwordConfirm.text.toString()) {
                                 Toast.makeText(
                                     this@AccountActivity,
@@ -162,9 +183,13 @@ class AccountActivity : AppCompatActivity() {
                                 userDataClass.writeCount = 0
                                 userDataClass.province = cityType
                                 userDataClass.phoneNum = binding.phoneNum.text.toString()
+                                if (uriPhoto == null) {
 
-                                funImageUpload(viewProfile!!)
-                                userDataClass.imageUri = MySharedPreferences.getImage(this@AccountActivity)
+                                }else{
+                                    funImageUpload(viewProfile!!)
+                                }
+                                userDataClass.imageUri =
+                                    MySharedPreferences.getImage(this@AccountActivity)
 
 
 
@@ -248,13 +273,6 @@ class AccountActivity : AppCompatActivity() {
                                 )
                                     .show()
 
-                            } else if (checkId == "X") {
-                                Toast.makeText(
-                                    this@AccountActivity,
-                                    "이미 사용하고 있는 아이디입니다.",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
                             } else if (binding.passwordInfo.text.toString() != binding.passwordConfirm.text.toString()) {
                                 Toast.makeText(
                                     this@AccountActivity,
@@ -266,8 +284,9 @@ class AccountActivity : AppCompatActivity() {
 
 
                                 var userDataClass = UserDataClass()
-                                funImageUpload(viewProfile!!)
-                                userDataClass.imageUri = MySharedPreferences.getImage(this@AccountActivity)
+                                funImageUpload(viewProfile!!)//여기
+                                userDataClass.imageUri =
+                                    MySharedPreferences.getImage(this@AccountActivity)
                                 userDataClass.name = binding.nameInfo.text.toString()
                                 userDataClass.loginCheck = "X"
                                 userDataClass.writeCount = 0
@@ -363,13 +382,6 @@ class AccountActivity : AppCompatActivity() {
                                 )
                                     .show()
 
-                            } else if (checkId == "X") {
-                                Toast.makeText(
-                                    this@AccountActivity,
-                                    "이미 사용하고 있는 아이디입니다.",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
                             } else if (binding.passwordInfo.text.toString() != binding.passwordConfirm.text.toString()) {
                                 Toast.makeText(
                                     this@AccountActivity,
@@ -382,7 +394,8 @@ class AccountActivity : AppCompatActivity() {
 
                                 var userDataClass = UserDataClass()
                                 funImageUpload(viewProfile!!)
-                                userDataClass.imageUri = MySharedPreferences.getImage(this@AccountActivity)
+                                userDataClass.imageUri =
+                                    MySharedPreferences.getImage(this@AccountActivity)
                                 userDataClass.name = binding.nameInfo.text.toString()
                                 userDataClass.loginCheck = "X"
                                 userDataClass.id = binding.idInfo.text.toString()
@@ -967,8 +980,9 @@ class AccountActivity : AppCompatActivity() {
         var imgFileName = "IMAGE_" + timeStamp + "_.png"
         var storageRef = fbStorage?.reference?.child("image")?.child(imgFileName)
 
-        val imageUrl = "https://firebasestorage.googleapis.com/v0/b/kingbus-driver.appspot.com/o/image%2F$imgFileName?alt=media"
-      MySharedPreferences.setImage(this, imageUrl)
+        val imageUrl =
+            "https://firebasestorage.googleapis.com/v0/b/kingbus-driver.appspot.com/o/image%2F$imgFileName?alt=media"
+        MySharedPreferences.setImage(this, imageUrl)
 
         storageRef?.putFile(uriPhoto!!)?.addOnSuccessListener {
             Toast.makeText(this, "이미지 업로드", Toast.LENGTH_SHORT).show()

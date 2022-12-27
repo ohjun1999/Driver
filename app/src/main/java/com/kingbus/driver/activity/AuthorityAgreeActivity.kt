@@ -23,6 +23,7 @@ class AuthorityAgreeActivity : AppCompatActivity() {
             if (binding.allAgree.isChecked) {
                 val intent = Intent(this, AccountActivity::class.java)
                 startActivity(intent)
+                finish()
             } else {
                 Toast.makeText(this, "모든 항목에 동의해주셔야 합니다.", Toast.LENGTH_SHORT).show()
             }

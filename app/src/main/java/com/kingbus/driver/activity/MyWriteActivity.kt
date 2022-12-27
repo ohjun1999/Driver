@@ -10,6 +10,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.kingbus.driver.MySharedPreferences
 import com.kingbus.driver.adapter.PostAdapter
 import com.kingbus.driver.databinding.ActivityMyWriteBinding
 import com.kingbus.driver.dataclass.PostDataClass
@@ -33,6 +34,8 @@ class MyWriteActivity : AppCompatActivity() {
         auth = Firebase.auth
         val uid = intent.getStringExtra("uid")
         val writeCount = intent.getStringExtra("writeCount")
+        val userUid = MySharedPreferences.getUserUid(this)
+        val userName = MySharedPreferences.getName(this)
         binding.backKey.setOnClickListener {
             finish()
         }
@@ -47,7 +50,7 @@ class MyWriteActivity : AppCompatActivity() {
                 postList.add(item)
             }
             val postAdapter =
-                PostAdapter(MainActivity(), postList)
+                PostAdapter(MainActivity(), postList,userUid)
             writeRecyclerView.adapter = postAdapter
             writeRecyclerView.layoutManager =
                 LinearLayoutManager(MyWriteActivity(), RecyclerView.VERTICAL, false)

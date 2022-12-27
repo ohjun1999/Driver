@@ -28,6 +28,7 @@ import kotlin.collections.ArrayList
 class PostAdapter(
     val context: Context,
     private val postList: ArrayList<PostDataClass>,
+    val theUid: String
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
@@ -63,8 +64,19 @@ class PostAdapter(
             holder.nonImg.visibility = View.GONE
         }
 
+        if (post.block?.size == 0) {
+            holder.postTitle.text = post.title
+        } else {
+            if (post.block!!.contains(theUid)) {
+                holder.postTitle.text = "차단된 게시물입니다."
+            }else{
+                holder.postTitle.text = post.title
+            }
+        }
+
+
         holder.postName.text = post.name
-        holder.postTitle.text = post.title
+
 //        holder.postPubDate.text = post.pubDate
 
         if (post.commentList?.size == 0) {

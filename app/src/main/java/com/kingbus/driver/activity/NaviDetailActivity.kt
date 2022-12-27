@@ -131,7 +131,7 @@ class NaviDetailActivity : AppCompatActivity() {
             } else {
                 hideKeyboard()
                 var reviewDataClass = ReviewDataClass()
-                reviewDataClass.name = userName
+                reviewDataClass.name = userUid
                 reviewDataClass.context = binding.editTextReview.text.toString()
                 reviewDataClass.userUid = userUid
                 reviewDataClass.naviUid = uid

@@ -1,5 +1,6 @@
 package com.kingbus.driver.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,7 +15,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.kingbus.driver.MySharedPreferences
 import com.kingbus.driver.activity.MainActivity
+import com.kingbus.driver.activity.NoticeDetailActivity
 import com.kingbus.driver.adapter.PostAdapter
 import com.kingbus.driver.databinding.FragmentTravelBinding
 import com.kingbus.driver.dataclass.PostDataClass
@@ -35,10 +38,35 @@ class ComChildTravelFragment : Fragment() {
         val root: View = binding.root
         db = Firebase.firestore
         auth = Firebase.auth
-
+        val userUid = MySharedPreferences.getUserUid(requireContext())
+        val userName = MySharedPreferences.getName(requireContext())
         travelRecyclerView = binding.travelRecyclerView
         var postList = arrayListOf<PostDataClass>()
+        db.collection("Notice").whereEqualTo("type", "여행").limit(1)
+            .addSnapshotListener { documents, _ ->
 
+
+                for (document in documents!!) {
+
+                    binding.postTitle.text = document.getString("title")
+
+                    if (document.get("comment").toString() == "0"){
+                        binding.countComment.visibility = View.GONE
+                    }else{
+                        binding.countComment.text = "(" + document.get("comment").toString() + ")"
+                    }
+
+                    binding.postPubDate.text = document.getString("pubDate")
+
+                }
+
+
+            }
+        binding.postItem.setOnClickListener {
+            val intent = Intent(activity, NoticeDetailActivity::class.java)
+            intent.putExtra("theType", "여행")
+            startActivity(intent)
+        }
         db.collection("Post").whereEqualTo("type","여행").orderBy("pubDate",Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
             postList.clear()
             for (document in documents) {
@@ -47,7 +75,7 @@ class ComChildTravelFragment : Fragment() {
                 postList.add(item)
             }
             val postAdapter =
-                PostAdapter(MainActivity(), postList)
+                PostAdapter(MainActivity(), postList , userName)
             travelRecyclerView.adapter = postAdapter
             travelRecyclerView.layoutManager =
                 LinearLayoutManager(MainActivity(), RecyclerView.VERTICAL, false)
@@ -64,8 +92,8 @@ class ComChildTravelFragment : Fragment() {
                     var item = document.toObject(PostDataClass::class.java)
                     postList.add(item)
                 }
-                val postAdapter =
-                    PostAdapter(MainActivity(), postList)
+               val postAdapter =
+                PostAdapter(MainActivity(), postList , userName)
                 travelRecyclerView.adapter = postAdapter
                 travelRecyclerView.layoutManager =
                     LinearLayoutManager(MainActivity(), RecyclerView.VERTICAL, false)

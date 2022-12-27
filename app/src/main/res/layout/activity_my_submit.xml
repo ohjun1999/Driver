@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/postDetail"
-    android:background="@color/backWeakGray"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backWeakGray"
     tools:context=".activity.MainActivity">
 
 
@@ -56,55 +56,69 @@
             app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/topLinear"
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/backWeakGray"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingTop="23dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/constraintLayout">
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_exclamation" />
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="6dp"
-            android:text="총 "
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            <LinearLayout
+                android:id="@+id/topLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/backWeakGray"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingTop="23dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/constraintLayout">
 
-        <TextView
-            android:id="@+id/submitCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2개"
-            android:textColor="@color/kingRed"
-            android:textSize="18sp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_exclamation" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" 지원됨"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="6dp"
+                    android:text="총 "
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/submitCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2개"
+                    android:textColor="@color/kingRed"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" 지원됨"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:padding="16dp"
-        android:id="@+id/submitRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/item_job"
-        app:layout_constraintTop_toBottomOf="@id/topLinear"/>
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/submitRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:padding="16dp"
+                app:layout_constraintTop_toBottomOf="@id/topLinear"
+                tools:listitem="@layout/item_job" />
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

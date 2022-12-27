@@ -32,17 +32,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/deleteBtn"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="@android:color/transparent"-->
-<!--            android:text="삭제"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:visibility="gone"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toStartOf="@id/type"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <TextView
+            android:id="@+id/deleteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="삭제"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/backKey"
@@ -53,19 +53,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
-
-        <Spinner
-            android:id="@+id/type"
-            android:layout_width="24dp"
-            android:spinnerMode="dropdown"
-            android:dropDownVerticalOffset="44dp"
-            android:layout_height="24dp"
-            android:gravity="center"
-            android:background="@drawable/ic_drop_down"
-            android:entries="@array/dropDown"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -87,6 +74,15 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 app:layout_constraintTop_toTopOf="parent">
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="[공지] "
+                    android:textColor="@color/kingRed"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                     android:id="@+id/postTitle"
@@ -95,40 +91,22 @@
                     android:text="사용방법 관련 질문입니다."
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@id/postName"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/text1"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/postName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="최원빈"
-                    android:textColor="@color/nameBlue"
-                    android:textSize="15sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/postTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/postTitle" />
+
 
                 <TextView
                     android:id="@+id/postPubDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2022.08.22 12:00"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView6"
-                    app:layout_constraintStart_toEndOf="@+id/textView6"
-                    app:layout_constraintTop_toTopOf="@+id/textView6" />
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/text1"
+                    app:layout_constraintTop_toBottomOf="@+id/postTitle"/>
 
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" ㅣ "
-                    android:textSize="15sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/postName"
-                    app:layout_constraintStart_toEndOf="@+id/postName"
-                    app:layout_constraintTop_toTopOf="@+id/postName" />
+
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -178,7 +156,6 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_marginTop="10dp"
                 android:background="@color/black45"
                 app:layout_constraintTop_toBottomOf="@id/topCon" />
 
@@ -205,7 +182,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="13dp"
                         android:background="@color/white"
-                        android:overScrollMode="never"
                         android:padding="10dp"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:listitem="@layout/item_notice_img" />
@@ -294,8 +270,8 @@ adipiscing elit. Ipsum quam purus nunc, tortor faucibus facilisis nec. Blandit i
         android:id="@+id/comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:elevation="5dp"
+        android:background="@color/white"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent">
 

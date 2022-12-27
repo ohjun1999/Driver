@@ -262,6 +262,10 @@ class WriteActivity : AppCompatActivity() {
                                 val doId = documentReference.id
                                 db.collection("Post")
                                     .document(doId).update("postUid", doId)
+                                for (i in imageList) {
+                                    db.collection("Post")
+                                        .document(doId).update("imgLink", FieldValue.arrayUnion(i))
+                                }
                             }
                             .addOnFailureListener { e ->
 
@@ -284,6 +288,10 @@ class WriteActivity : AppCompatActivity() {
                                 val doId = documentReference.id
                                 db.collection("Post")
                                     .document(doId).update("postUid", doId)
+                                for (i in imageList) {
+                                    db.collection("Post")
+                                        .document(doId).update("imgLink", FieldValue.arrayUnion(i))
+                                }
                             }
                             .addOnFailureListener { e ->
 
@@ -306,6 +314,10 @@ class WriteActivity : AppCompatActivity() {
                                 val doId = documentReference.id
                                 db.collection("Post")
                                     .document(doId).update("postUid", doId)
+                                for (i in imageList) {
+                                    db.collection("Post")
+                                        .document(doId).update("imgLink", FieldValue.arrayUnion(i))
+                                }
                             }
                             .addOnFailureListener { e ->
 

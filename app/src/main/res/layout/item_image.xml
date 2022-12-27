@@ -8,6 +8,7 @@
         android:src="@drawable/ic_get_img"
         android:layout_gravity="center"
         android:layout_width="85dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toTopOf="parent"
 app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

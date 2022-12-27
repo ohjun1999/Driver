@@ -44,7 +44,6 @@
                         android:id="@+id/postTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="커뮤니티 이용관련 공지사항"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="@+id/text1"
@@ -55,7 +54,6 @@
                         android:id="@+id/countComment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" (30)"
                         android:textColor="@color/kingRed"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/postTitle"
@@ -68,7 +66,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="2022.08.22 12:00"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/text1"
                         app:layout_constraintTop_toBottomOf="@+id/text1" />
