@@ -47,6 +47,7 @@
         <activity android:name=".activity.MyCarInfoActivity" />
         <activity android:name=".activity.JobDetailActivity" />
         <activity android:name=".activity.NaviDetailActivity" />
+        <activity android:name=".activity.QesActivity" />
         <activity
             android:name=".activity.AuthorityAgreeActivity"
             android:theme="@style/Theme.Driver2" />

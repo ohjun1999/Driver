@@ -43,6 +43,33 @@ class ComChildDriverFragment : Fragment() {
         val userUid = MySharedPreferences.getUserUid(requireContext())
         val userName = MySharedPreferences.getName(requireContext())
         var postList = arrayListOf<PostDataClass>()
+
+        db.collection("User").whereEqualTo("uid", userUid).limit(1)
+            .addSnapshotListener { documents, _ ->
+
+
+                for (document in documents!!) {
+                    var blockList: ArrayList<String> = document.get("block") as ArrayList<String>
+                    db.collection("Post").whereEqualTo("type", "공차배차").orderBy("pubDate",Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
+                        postList.clear()
+                        for (document in documents) {
+                            Log.d(document.id, document.data.toString())
+                            var item = document.toObject(PostDataClass::class.java)
+                            postList.add(item)
+                        }
+                        val postAdapter =
+                            PostAdapter(MainActivity(), postList,userName,blockList)
+                        driverRecyclerView.adapter = postAdapter
+                        driverRecyclerView.layoutManager =
+                            LinearLayoutManager(MainActivity(), RecyclerView.VERTICAL, false)
+                    }
+
+
+                }
+
+
+            }
+
         db.collection("Notice").whereEqualTo("type", "공차배차").limit(1)
             .addSnapshotListener { documents, _ ->
 
@@ -68,36 +95,24 @@ class ComChildDriverFragment : Fragment() {
             intent.putExtra("theType", "공차배차")
             startActivity(intent)
         }
-        db.collection("Post").whereEqualTo("type", "공차배차").orderBy("pubDate",Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
-            postList.clear()
-            for (document in documents) {
-                Log.d(document.id, document.data.toString())
-                var item = document.toObject(PostDataClass::class.java)
-                postList.add(item)
-            }
-            val postAdapter =
-                PostAdapter(MainActivity(), postList,userName)
-            driverRecyclerView.adapter = postAdapter
-            driverRecyclerView.layoutManager =
-                LinearLayoutManager(MainActivity(), RecyclerView.VERTICAL, false)
-        }
+
         binding.refresh.setOnRefreshListener {
             binding.refresh.isRefreshing=false
-            db.collection("Post").whereEqualTo("type", "공차배차").orderBy("pubDate",Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
-                postList.clear()
-                for (document in documents) {
-                    Log.d(document.id, document.data.toString())
-                    var item = document.toObject(PostDataClass::class.java)
-                    postList.add(item)
-                }
-               val postAdapter =
-                PostAdapter(MainActivity(), postList , userName)
-                driverRecyclerView.adapter = postAdapter
-                driverRecyclerView.layoutManager =
-                    LinearLayoutManager(MainActivity(), RecyclerView.VERTICAL, false)
-
-
-            }
+//            db.collection("Post").whereEqualTo("type", "공차배차").orderBy("pubDate",Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
+//                postList.clear()
+//                for (document in documents) {
+//                    Log.d(document.id, document.data.toString())
+//                    var item = document.toObject(PostDataClass::class.java)
+//                    postList.add(item)
+//                }
+//               val postAdapter =
+//                PostAdapter(MainActivity(), postList , userName)
+//                driverRecyclerView.adapter = postAdapter
+//                driverRecyclerView.layoutManager =
+//                    LinearLayoutManager(MainActivity(), RecyclerView.VERTICAL, false)
+//
+//
+//            }
         }
         return root
     }

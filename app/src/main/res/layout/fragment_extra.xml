@@ -198,7 +198,27 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/black12" />
+            <TextView
+                android:id="@+id/goQes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_go_arrow"
+                android:padding="16dp"
+                android:text="수정요청"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/black12" />
             <TextView
                 android:id="@+id/goMyProfile"
                 android:layout_width="match_parent"

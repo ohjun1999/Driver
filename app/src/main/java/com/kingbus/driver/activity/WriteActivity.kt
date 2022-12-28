@@ -140,9 +140,9 @@ class WriteActivity : AppCompatActivity() {
                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                 1
             )
-            var photoPickerIntent = Intent(Intent.ACTION_PICK)
-            photoPickerIntent.type = "image/*"
-            startActivityForResult(photoPickerIntent, pickImageFromAlbum)
+//            var photoPickerIntent = Intent(Intent.ACTION_PICK)
+//            photoPickerIntent.type = "image/*"
+//            startActivityForResult(photoPickerIntent, pickImageFromAlbum)
 
         }
 

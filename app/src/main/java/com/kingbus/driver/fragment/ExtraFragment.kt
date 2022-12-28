@@ -71,7 +71,12 @@ class ExtraFragment : Fragment() {
         }
 
 
-
+        binding.goQes.setOnClickListener {
+            val intent = Intent(activity, QesActivity::class.java)
+            intent.putExtra("uid", myUid)
+            intent.putExtra("writeCount", binding.writeCount.text.toString())
+            startActivity(intent)
+        }
 
        binding.goMyWrite.setOnClickListener {
             val intent = Intent(activity, MyWriteActivity::class.java)
